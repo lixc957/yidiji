@@ -1,8 +1,13 @@
 <template>
   <div class="login">
-    <div class="left"></div>
+    <div class="left">
+      <div class="login-title">
+        <img class="login-logo" src="~assets/img/login/login_logo.png" alt="" />
+        <span>依蒂吉用户管理系统</span>
+      </div>
+    </div>
     <div class="right">
-      <img src="~assets/img/login_banner_ele.png" alt="">
+      <img src="~assets/img/login/login_banner_ele.png" alt="" />
     </div>
   </div>
 </template>
@@ -25,7 +30,29 @@ export default {
   .left {
     width: 478px;
     height: 550px;
+    padding: 42px;
     background: #f5f5f5;
+
+    .login-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .login-logo {
+        width: 25px;
+        height: 18px;
+        margin-top: 6px;
+        margin-right: 16px;
+      }
+
+      > span {
+        font-size: 24px;
+        font-family: SourceHanSansCN Regular, SourceHanSansCN Regular-Regular;
+        font-weight: 400;
+        text-align: left;
+        color: #0c0c0c;
+      }
+    }
   }
 
   .right {
