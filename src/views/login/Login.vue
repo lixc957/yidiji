@@ -13,14 +13,12 @@
 <script>
 import LoginInput from './childComps/LoginInput'
 import LoginTitle from './childComps/LoginTitle'
-import LoginButton from './childComps/LoginButton'
 
 export default {
   name: 'Login',
   components: {
     LoginInput,
-    LoginTitle,
-    LoginButton
+    LoginTitle
   }
 }
 </script>
