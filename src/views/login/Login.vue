@@ -1,10 +1,8 @@
 <template>
   <div class="login">
     <div class="left">
-      <div class="login-title">
-        <img class="login-logo" src="~assets/img/login/login_logo.png" alt="" />
-        <span>依蒂吉用户管理系统</span>
-      </div>
+      <login-title />
+      <login-input />
     </div>
     <div class="right">
       <img src="~assets/img/login/login_banner_ele.png" alt="" />
@@ -13,8 +11,17 @@
 </template>
 
 <script>
+import LoginInput from './childComps/LoginInput'
+import LoginTitle from './childComps/LoginTitle'
+import LoginButton from './childComps/LoginButton'
+
 export default {
   name: 'Login',
+  components: {
+    LoginInput,
+    LoginTitle,
+    LoginButton
+  }
 }
 </script>
 
@@ -32,27 +39,6 @@ export default {
     height: 550px;
     padding: 42px;
     background: #f5f5f5;
-
-    .login-title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .login-logo {
-        width: 25px;
-        height: 18px;
-        margin-top: 6px;
-        margin-right: 16px;
-      }
-
-      > span {
-        font-size: 24px;
-        font-family: SourceHanSansCN Regular, SourceHanSansCN Regular-Regular;
-        font-weight: 400;
-        text-align: left;
-        color: #0c0c0c;
-      }
-    }
   }
 
   .right {
