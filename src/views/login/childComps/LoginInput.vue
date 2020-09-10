@@ -66,8 +66,11 @@
 </template>
 
 <script>
+import { submitFormMixin } from 'common/mixin'
+
 export default {
   name: 'LoginInput',
+  mixins: [submitFormMixin],
   data () {
     return {
       loginForm: {
@@ -94,25 +97,6 @@ export default {
     }
   },
   methods: {
-    // 表单验证
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$message({
-            message: '验证成功',
-            type: 'success',
-            duration: 2000
-          })
-        } else {
-          this.$message({
-            message: '验证失败',
-            type: 'error',
-            duration: 2000
-          })
-          return false
-        }
-      })
-    },
     // 用户注册
     register() {
       this.$emit('register', this.dialogVisible)

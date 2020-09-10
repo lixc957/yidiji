@@ -60,8 +60,11 @@
 <script>
 import RegisterUpload from './RegisterUpload'
 
+import { submitFormMixin } from 'common/mixin'
+
 export default {
   name: 'RegisterInput',
+  mixins: [submitFormMixin],
   data () {
     return {
       registerForm: {
@@ -106,25 +109,6 @@ export default {
       this.registerForm.avatar = res
       // 手动触发一次校验
       this.$refs.registerForm.validateField(['avatar'])
-    },
-    // 表单验证
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$message({
-            message: '验证成功',
-            type: 'success',
-            duration: 2000
-          })
-        } else {
-          this.$message({
-            message: '验证失败',
-            type: 'error',
-            duration: 2000
-          })
-          return false
-        }
-      })
     }
   },
 }
