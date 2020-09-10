@@ -2,24 +2,32 @@
   <div class="login">
     <div class="left">
       <login-title />
-      <login-input />
+      <login-input @register="toRegister" />
     </div>
     <div class="right">
       <img src="~assets/img/login/login_banner_ele.png" alt="" />
     </div>
+    <register ref="register" />
   </div>
 </template>
 
 <script>
 import LoginInput from './childComps/LoginInput'
 import LoginTitle from './childComps/LoginTitle'
+import Register from 'views/register/Register'
 
 export default {
   name: 'Login',
   components: {
     LoginInput,
-    LoginTitle
-  }
+    LoginTitle,
+    Register
+  },
+  methods: {
+    toRegister(dialogVisible) {
+      this.$refs.register.dialogVisible = dialogVisible
+    }
+  },
 }
 </script>
 

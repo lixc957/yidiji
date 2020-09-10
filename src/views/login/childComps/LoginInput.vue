@@ -60,7 +60,7 @@
       </el-form-item>
 
       <el-form-item class="input-item">
-        <el-button type="primary" class="btn btn-register">注册</el-button>
+        <el-button type="primary" class="btn btn-register" @click="register">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -90,7 +90,8 @@ export default {
           { required: true, message: '请输入验证码', trigger: 'blur' },
           { min: 4, max: 4, message: '验证码错误，请重新输入', trigger: 'blur' }
         ]
-      }
+      },
+      dialogVisible: true
     }
   },
   methods: {
@@ -112,6 +113,10 @@ export default {
           return false
         }
       })
+    },
+    // 用户注册
+    register() {
+      this.$emit('register', this.dialogVisible)
     }
   }
 }
