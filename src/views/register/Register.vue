@@ -1,24 +1,37 @@
 <template>
-  <el-dialog 
-  :visible.sync="dialogVisible" 
-  :show-close="false" 
-  class="register"
-  width="603px"
+  <el-dialog
+    :visible.sync="dialogVisible"
+    :show-close="false"
+    class="register"
+    width="603px"
   >
     <div class="title" slot="title">用户注册</div>
+    <register-input ref="registerInput" />
     <div slot="footer" class="dialog-footer footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary">确 定</el-button>
+      <el-button type="primary" @click="submitForm"
+        >确 定</el-button
+      >
     </div>
   </el-dialog>
 </template>
 
 <script>
+import RegisterInput from './childComps/RegisterInput'
+
 export default {
   name: 'Register',
   data () {
     return {
       dialogVisible: false
+    }
+  },
+  components: {
+    RegisterInput
+  },
+  methods: {
+    submitForm() {
+      this.$refs.registerInput.submitForm('registerForm')
     }
   },
 }

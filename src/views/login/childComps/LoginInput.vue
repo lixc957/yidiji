@@ -1,11 +1,10 @@
 <template>
   <div class="login-input">
-    <el-form :model="form" :rules="rules" ref="ruleForm">
+    <el-form :model="loginForm" :rules="rules" ref="loginForm">
       <el-form-item class="input-item" prop="phone">
         <el-input
           placeholder="请输入手机号"
           prefix-icon="el-icon-user"
-          v-model.lazy.trim="form.phone"
         >
         </el-input>
       </el-form-item>
@@ -14,7 +13,7 @@
         <el-input
           placeholder="请输入密码"
           prefix-icon="el-icon-lock"
-          v-model.lazy.trim="form.password"
+          v-model.lazy.trim="loginForm.password"
           show-password
         >
         </el-input>
@@ -22,15 +21,15 @@
 
       <el-form-item class="input-item" prop="code">
         <el-row>
-          <el-col :span="17">
+          <el-col :span="16">
             <el-input
               placeholder="请输入验证码"
               prefix-icon="el-icon-lock"
-              v-model.lazy.trim="form.code"
+              v-model.lazy.trim="loginForm.code"
             >
             </el-input>
           </el-col>
-          <el-col :span="7" class="code">
+          <el-col :span="7" :offset="1">
             <img src="~assets/img/login/code.png" alt="" />
           </el-col>
         </el-row>
@@ -54,7 +53,7 @@
           type="primary"
           :disabled="!isAgree"
           class="btn btn-login"
-          @click="submitForm('ruleForm')"
+          @click="submitForm('loginForm')"
           >登陆
         </el-button>
       </el-form-item>
@@ -71,7 +70,7 @@ export default {
   name: 'LoginInput',
   data () {
     return {
-      form: {
+      loginForm: {
         phone: '',
         password: '',
         code: ''
@@ -84,7 +83,7 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, max: 12, message: '长度为 6 至 12 位', trigger: 'blur' }
+          { min: 6, max: 12, message: '密码长度为 6 至 12 位', trigger: 'blur' }
         ],
         code: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
@@ -127,7 +126,7 @@ export default {
   margin-top: 25px;
 }
 
-.code img {
+.input-item img {
   width: 100%;
   height: 100%;
 }
