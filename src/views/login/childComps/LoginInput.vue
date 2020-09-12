@@ -80,12 +80,6 @@ export default {
         code: ''
       },
       isAgree: false,
-      rules: {
-        code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' },
-          { min: 4, max: 4, message: '验证码错误，请重新输入', trigger: 'blur' }
-        ]
-      },
       dialogVisible: true
     }
   },

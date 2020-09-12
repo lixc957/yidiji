@@ -11,6 +11,7 @@
         v-model.lazy.trim="registerForm.avatar"
         @handleAvatarSuccess="avatarSuccess"
         :baseUrl="baseUrl"
+        ref="registerUpload"
       />
     </el-form-item>
 
@@ -33,24 +34,27 @@
       ></el-input>
     </el-form-item>
 
-    <el-form-item class="input-item" label="图形码">
+    <el-form-item class="input-item" label="图形码" prop="code">
       <el-row>
         <el-col :span="16">
-          <el-input v-model.lazy.trim="registerForm.icode"></el-input>
+          <el-input v-model.lazy.trim="registerForm.code"></el-input>
         </el-col>
         <el-col :span="7" :offset="1" class="icode">
-          <img :src="icodeUrl" alt="" />
+          <img :src="baseUrl + icodeUrl" @click="codeImgClick" alt="" />
         </el-col>
       </el-row>
     </el-form-item>
 
     <el-form-item class="input-item" label="验证码">
       <el-row>
-        <el-col :span="16">
+        <el-col :span="14">
           <el-input v-model.lazy.trim="registerForm.rcode"></el-input>
         </el-col>
-        <el-col :span="7" :offset="1">
-          <el-button>获取用户验证码</el-button>
+        <el-col :span="9" :offset="1">
+          <el-button @click="getCode" :disabled="time != 6" class="btn-GetCode">
+            获取用户验证码
+            <span v-if="time != 6">({{time}})</span>
+          </el-button>
         </el-col>
       </el-row>
     </el-form-item>
@@ -73,7 +77,7 @@ export default {
         email: '',
         phone: '',
         password: '',
-        icode: '',
+        code: '',
         rcode: ''
       },
       rules: {
@@ -106,23 +110,60 @@ export default {
         
       },
       baseUrl: process.env.VUE_APP_BASEURL,
-      icodeUrl: process.env.VUE_APP_BASEURL + '/captcha?type=sendsms'
+      icodeUrl: '/captcha?type=sendsms',
+      time: 6
     }
   },
   components: {
     RegisterUpload
   },
   methods: {
+    // 获取用户验证码
+    getCode() {
+      this.time--
+      let timerId = setInterval(() => {
+        this.time--
+        if (this.time === 0) {
+          this.time = 6
+          clearInterval(timerId)
+        }
+      }, 1000)
+
+      let num = 0
+      this.$refs.registerForm.validateField(['phone', 'code'], err => {
+        if (err === '') {
+          // 验证成功
+          num++
+        } 
+        if (num === 2) {
+          // 发射事件
+          this.$emit('getCode', this.registerForm.code, this.registerForm.phone)
+        }
+      })
+    },
+
+    // 头像上传
     avatarSuccess (res) {
       this.registerForm.avatar = res
       // 手动触发一次校验
       this.$refs.registerForm.validateField(['avatar'])
+    },
+
+    // 点击图形码
+    codeImgClick() {
+      this.icodeUrl = '/captcha?type=sendsms&msg=' + Date.now()
+    },
+
+    // 清空表单
+    resetFields() {
+      this.$refs.registerForm.resetFields()
+      this.$refs.registerUpload.imageUrl = ''
     }
   },
 }
 </script>
 
-<style>
+<style lang="less">
 .register-form .el-form-item__label {
   text-align: center;
 }

@@ -1,17 +1,13 @@
 export const submitFormMixin = {
   methods: {
     // 表单验证
-    submitForm(formName) {
+    async submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: '验证成功',
-            type: 'success',
-            duration: 2000
-          })
+          this.$emit('register', this.registerForm)
         } else {
           this.$message({
-            message: '验证失败',
+            message: '注册失败',
             type: 'error',
             duration: 2000,
           })
@@ -41,6 +37,10 @@ export const regFromMixin = {
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 6, max: 12, message: '密码长度为 6 至 12 位', trigger: 'blur' }
         ],
+        code: [
+          { required: true, message: '请输入验证码', trigger: 'blur' },
+          { min: 4, max: 4, message: '验证码错误，请重新输入', trigger: 'blur' }
+        ]
       }
     }
   },

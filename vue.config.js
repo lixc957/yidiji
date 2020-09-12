@@ -11,5 +11,15 @@ module.exports = {
         views: '@/views'
       }
     }
+  },
+  devServer: {
+    proxy: {
+      '/public': {
+        target: 'http://127.0.0.1/heimamm/public',
+        pathRewrite: {
+          '/public': ''
+        }
+      }
+    }
   }
 }
