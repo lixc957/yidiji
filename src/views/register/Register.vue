@@ -6,7 +6,11 @@
     width="603px"
   >
     <div class="title" slot="title">用户注册</div>
-    <register-input ref="registerInput" @getCode="getCode(arguments)" @register="register" />
+    <register-input
+      ref="registerInput"
+      @getCode="getCode(arguments)"
+      @register="register"
+    />
     <div slot="footer" class="dialog-footer footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -33,7 +37,7 @@ export default {
   },
   watch: {
     // 清空表单
-    dialogVisible(newVal) {
+    dialogVisible (newVal) {
       if (!newVal) {
         this.$refs.registerInput.resetFields()
       }
@@ -43,7 +47,7 @@ export default {
     /**
      * 	网络请求相关方法
      */
-    async getCode(params) {
+    async getCode (params) {
       this.code = params[0]
       this.phone = params[1]
       const res = await getCode(this.code, this.phone)
@@ -52,14 +56,18 @@ export default {
       else this.$message.error('图形码有误，请重新输入！')
     },
 
-    async register(data) {
-      await register(data)
-      this.$message({
-        message: '注册成功',
-        type: 'success',
-        duration: 2000
-      })
-      this.dialogVisible = false
+    async register (data) {
+      try {
+        await register(data)
+        this.$message({
+          message: '注册成功',
+          type: 'success',
+          duration: 2000
+        })
+        this.dialogVisible = false
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     /**

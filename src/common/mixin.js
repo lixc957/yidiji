@@ -1,18 +1,11 @@
 export const submitFormMixin = {
   methods: {
     // 表单验证
-    async submitForm(formName) {
+    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$emit('register', this.registerForm)
-        } else {
-          this.$message({
-            message: '注册失败',
-            type: 'error',
-            duration: 2000,
-          })
-          return false
-        }
+        } 
       })
     }
   }

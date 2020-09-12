@@ -92,7 +92,7 @@ export default {
             if (reg.test(value)) {
               callback()
             } else {
-              callback(new Error('昵称只能能是英文字母'))
+              callback(new Error('昵称只能是英文字母'))
             }
           }, trigger: 'blur' }
         ],
