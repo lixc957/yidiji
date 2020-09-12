@@ -48,12 +48,18 @@ export default {
      * 	网络请求相关方法
      */
     async getCode (params) {
-      this.code = params[0]
-      this.phone = params[1]
-      const res = await getCode(this.code, this.phone)
-      const { captcha } = res.data.data
-      if (captcha) this.$message.success(captcha + '')
-      else this.$message.error('图形码有误，请重新输入！')
+      try {    
+        this.code = params[0]
+        this.phone = params[1]
+        const res = await getCode(this.code, this.phone)
+        // 开启倒计时
+        this.$refs.registerInput.countDown()
+        const { captcha } = res.data.data
+        if (captcha) this.$message.success(captcha + '')
+        else this.$message.error('图形码有误，请重新输入！')
+      } catch (error) {
+        console.warn(error)
+      }
     },
 
     async register (data) {

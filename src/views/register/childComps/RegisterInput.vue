@@ -53,7 +53,7 @@
         <el-col :span="9" :offset="1">
           <el-button @click="getCode" :disabled="time != 6" class="btn-GetCode">
             获取用户验证码
-            <span v-if="time != 6">({{time}})</span>
+            <span v-if="time != 6">({{ time }})</span>
           </el-button>
         </el-col>
       </el-row>
@@ -87,27 +87,31 @@ export default {
         username: [
           { required: true, message: '请输入昵称', trigger: 'blur' },
           { min: 3, max: 6, message: '昵称长度为 3 至 6 位', trigger: 'blur' },
-          { validator: (rule, value, callback) => {
-            let reg = /^[a-z]+$/i
-            if (reg.test(value)) {
-              callback()
-            } else {
-              callback(new Error('昵称只能是英文字母'))
-            }
-          }, trigger: 'blur' }
+          {
+            validator: (rule, value, callback) => {
+              let reg = /^[a-z]+$/i
+              if (reg.test(value)) {
+                callback()
+              } else {
+                callback(new Error('昵称只能是英文字母'))
+              }
+            }, trigger: 'blur'
+          }
         ],
         email: [
           { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { validator: (rule, value, callback) => {
-            let reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
-            if (reg.test(value)) {
-              callback()
-            } else {
-              callback(new Error('请输入正确邮箱'))
-            }
-          }, trigger: 'blur' }
+          {
+            validator: (rule, value, callback) => {
+              let reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
+              if (reg.test(value)) {
+                callback()
+              } else {
+                callback(new Error('请输入正确邮箱'))
+              }
+            }, trigger: 'blur'
+          }
         ],
-        
+
       },
       baseUrl: process.env.VUE_APP_BASEURL,
       icodeUrl: '/captcha?type=sendsms',
@@ -119,22 +123,13 @@ export default {
   },
   methods: {
     // 获取用户验证码
-    getCode() {
-      this.time--
-      let timerId = setInterval(() => {
-        this.time--
-        if (this.time === 0) {
-          this.time = 6
-          clearInterval(timerId)
-        }
-      }, 1000)
-
+    getCode () {
       let num = 0
       this.$refs.registerForm.validateField(['phone', 'code'], err => {
         if (err === '') {
           // 验证成功
           num++
-        } 
+        }
         if (num === 2) {
           // 发射事件
           this.$emit('getCode', this.registerForm.code, this.registerForm.phone)
@@ -150,14 +145,27 @@ export default {
     },
 
     // 点击图形码
-    codeImgClick() {
+    codeImgClick () {
       this.icodeUrl = '/captcha?type=sendsms&msg=' + Date.now()
     },
 
     // 清空表单
-    resetFields() {
+    resetFields () {
       this.$refs.registerForm.resetFields()
       this.$refs.registerUpload.imageUrl = ''
+      this.registerForm.rcode = ''
+    },
+
+    // 倒计时
+    countDown() {
+      this.time--
+      let timerId = setInterval(() => {
+        this.time--
+        if (this.time === 0) {
+          this.time = 6
+          clearInterval(timerId)
+        }
+      }, 1000)
     }
   },
 }
