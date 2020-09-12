@@ -67,6 +67,7 @@ export default {
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+
 .avatar-uploader .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -75,6 +76,7 @@ export default {
   line-height: 178px;
   text-align: center;
 }
+
 .avatar {
   width: 178px;
   height: 178px;

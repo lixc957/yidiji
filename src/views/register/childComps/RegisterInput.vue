@@ -60,11 +60,11 @@
 <script>
 import RegisterUpload from './RegisterUpload'
 
-import { submitFormMixin } from 'common/mixin'
+import { submitFormMixin, regFromMixin } from 'common/mixin'
 
 export default {
   name: 'RegisterInput',
-  mixins: [submitFormMixin],
+  mixins: [submitFormMixin, regFromMixin],
   data () {
     return {
       registerForm: {
@@ -82,20 +82,28 @@ export default {
         ],
         username: [
           { required: true, message: '请输入昵称', trigger: 'blur' },
-          { min: 3, max: 5, message: '昵称长度为 3 至 5 位', trigger: 'blur' }
+          { min: 3, max: 6, message: '昵称长度为 3 至 6 位', trigger: 'blur' },
+          { validator: (rule, value, callback) => {
+            let reg = /^[a-z]+$/i
+            if (reg.test(value)) {
+              callback()
+            } else {
+              callback(new Error('昵称只能能是英文字母'))
+            }
+          }, trigger: 'blur' }
         ],
         email: [
           { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { min: 3, max: 5, message: '昵称长度为 3 至 5 位', trigger: 'blur' }
+          { validator: (rule, value, callback) => {
+            let reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
+            if (reg.test(value)) {
+              callback()
+            } else {
+              callback(new Error('请输入正确邮箱'))
+            }
+          }, trigger: 'blur' }
         ],
-        phone: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { min: 11, max: 11, message: '手机号长度为 11 位', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, max: 12, message: '密码长度为 6 至 12 位', trigger: 'blur' }
-        ],
+        
       },
       baseUrl: process.env.VUE_APP_BASEURL,
       icodeUrl: process.env.VUE_APP_BASEURL + '/captcha?type=sendsms'

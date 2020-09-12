@@ -5,6 +5,7 @@
         <el-input
           placeholder="请输入手机号"
           prefix-icon="el-icon-user"
+          v-model.lazy.trim="loginForm.phone"
         >
         </el-input>
       </el-form-item>
@@ -66,11 +67,11 @@
 </template>
 
 <script>
-import { submitFormMixin } from 'common/mixin'
+import { submitFormMixin, regFromMixin } from 'common/mixin'
 
 export default {
   name: 'LoginInput',
-  mixins: [submitFormMixin],
+  mixins: [submitFormMixin, regFromMixin],
   data () {
     return {
       loginForm: {
@@ -80,14 +81,6 @@ export default {
       },
       isAgree: false,
       rules: {
-        phone: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { min: 11, max: 11, message: '手机号长度为 11 位', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, max: 12, message: '密码长度为 6 至 12 位', trigger: 'blur' }
-        ],
         code: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
           { min: 4, max: 4, message: '验证码错误，请重新输入', trigger: 'blur' }
