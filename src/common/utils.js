@@ -11,3 +11,11 @@ export function tips(message, type) {
 export function setLocal(key, value) {
   localStorage.setItem(key, value)
 }
+
+export function getLocal(key) {
+  return localStorage.getItem(key)
+}
+
+export function removeLocal(key) {
+  localStorage.removeItem(key)
+}

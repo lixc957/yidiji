@@ -17,7 +17,7 @@ import LoginTitle from './childComps/LoginTitle'
 import Register from 'views/register/Register'
 
 import { login } from 'network/login'
-import { setLocal, tips } from 'common/utils'
+import { setLocal, getLocal, tips } from 'common/utils'
 
 export default {
   name: 'Login',
@@ -25,6 +25,9 @@ export default {
     LoginInput,
     LoginTitle,
     Register
+  },
+  created () {
+    this.getToken()
   },
   methods: {
     /**
@@ -47,6 +50,11 @@ export default {
     // 点击注册
     toRegister (dialogVisible) {
       this.$refs.register.dialogVisible = dialogVisible
+    },
+    getToken () {
+      if (getLocal('token')) {
+        return this.$router.replace('/home')
+      }
     }
   },
 }
