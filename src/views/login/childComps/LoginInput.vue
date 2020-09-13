@@ -31,7 +31,7 @@
             </el-input>
           </el-col>
           <el-col :span="7" :offset="1">
-            <img src="~assets/img/login/code.png" alt="" />
+            <img :src="codeUrl" @click="codeImgClick" alt="" />
           </el-col>
         </el-row>
       </el-form-item>
@@ -80,14 +80,20 @@ export default {
         code: ''
       },
       isAgree: false,
-      dialogVisible: true
+      dialogVisible: true,
+      baseUrl: process.env.VUE_APP_BASEURL,
+      codeUrl: process.env.VUE_APP_BASEURL + '/captcha?type=login',
     }
   },
   methods: {
     // 用户注册
     register() {
       this.$emit('register', this.dialogVisible)
-    }
+    },
+    // 点击验证码
+    codeImgClick () {
+      this.codeUrl = this.baseUrl + '/captcha?type=login&msg=' + Date.now()
+    },
   }
 }
 </script>

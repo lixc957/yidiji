@@ -40,7 +40,7 @@
           <el-input v-model.lazy.trim="registerForm.code"></el-input>
         </el-col>
         <el-col :span="7" :offset="1" class="icode">
-          <img :src="baseUrl + icodeUrl" @click="codeImgClick" alt="" />
+          <img :src="codeUrl" @click="codeImgClick" alt="" />
         </el-col>
       </el-row>
     </el-form-item>
@@ -114,7 +114,7 @@ export default {
 
       },
       baseUrl: process.env.VUE_APP_BASEURL,
-      icodeUrl: '/captcha?type=sendsms',
+      codeUrl: process.env.VUE_APP_BASEURL + '/captcha?type=sendsms',
       time: 6
     }
   },
@@ -146,7 +146,7 @@ export default {
 
     // 点击图形码
     codeImgClick () {
-      this.icodeUrl = '/captcha?type=sendsms&msg=' + Date.now()
+      this.codeUrl = '/captcha?type=sendsms&msg=' + Date.now()
     },
 
     // 清空表单
