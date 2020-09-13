@@ -34,6 +34,7 @@ export default {
       const res = await login(data)
       tips('登录成功', 'success')
       setLocal('token', res.data.data.token)
+      this.$router.push('/home')
     },
 
     /**
