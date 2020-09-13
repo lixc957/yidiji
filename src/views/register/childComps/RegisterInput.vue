@@ -146,7 +146,7 @@ export default {
 
     // 点击图形码
     codeImgClick () {
-      this.codeUrl = '/captcha?type=sendsms&msg=' + Date.now()
+      this.codeUrl = this.baseUrl + '/captcha?type=sendsms&msg=' + Date.now()
     },
 
     // 清空表单
