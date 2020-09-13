@@ -17,6 +17,7 @@ import LoginTitle from './childComps/LoginTitle'
 import Register from 'views/register/Register'
 
 import { login } from 'network/login'
+import { setLocal, tips } from 'common/utils'
 
 export default {
   name: 'Login',
@@ -31,7 +32,8 @@ export default {
      */
     async login(data) {
       const res = await login(data)
-      console.log(res);
+      tips('登录成功', 'success')
+      setLocal('token', res.data.data.token)
     },
 
     /**

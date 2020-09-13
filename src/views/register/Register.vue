@@ -22,6 +22,7 @@
 import RegisterInput from './childComps/RegisterInput'
 
 import { getCode, register } from 'network/register'
+import { tips } from 'common/utils'
 
 export default {
   name: 'Register',
@@ -55,8 +56,7 @@ export default {
         // 开启倒计时
         this.$refs.registerInput.countDown()
         const { captcha } = res.data.data
-        if (captcha) this.$message.success(captcha + '')
-        else this.$message.error('图形码有误，请重新输入！')
+        if (captcha) tips(captcha + '', 'success')
       } catch (error) {
         console.warn(error)
       }
@@ -65,11 +65,7 @@ export default {
     async register (data) {
       try {
         await register(data)
-        this.$message({
-          message: '注册成功',
-          type: 'success',
-          duration: 2000
-        })
+        tips('登录成功', 'success')
         this.dialogVisible = false
       } catch (error) {
         console.warn(error)
