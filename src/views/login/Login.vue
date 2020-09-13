@@ -30,18 +30,22 @@ export default {
     /**
      * 	网络请求相关方法
      */
-    async login(data) {
-      const res = await login(data)
-      tips('登录成功', 'success')
-      setLocal('token', res.data.data.token)
-      this.$router.push('/home')
+    async login (data) {
+      try {
+        const res = await login(data)
+        tips('登录成功', 'success')
+        setLocal('token', res.data.data.token)
+        this.$router.push('/home')
+      } catch (error) {
+        console.warn(error)
+      }
     },
 
     /**
      * 	事件相关方法
      */
     // 点击注册
-    toRegister(dialogVisible) {
+    toRegister (dialogVisible) {
       this.$refs.register.dialogVisible = dialogVisible
     }
   },
