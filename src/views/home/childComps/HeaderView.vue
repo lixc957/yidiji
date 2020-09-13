@@ -67,7 +67,7 @@ export default {
     .icon {
       font-size: 24px;
       &:hover {
-        color: #409EFF
+        color: #409EFF;
         cursor: pointer;
       }
     }

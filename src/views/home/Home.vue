@@ -12,7 +12,11 @@
       <el-aside width="auto" class="aside">
         <aside-view ref="asideBar" />
       </el-aside>
-      <el-main class="main">Main</el-main>
+      <el-main class="main">
+        <keep-alive>
+          <router-view />
+        </keep-alive>
+      </el-main>
     </el-container>
   </el-container>
 </template>
