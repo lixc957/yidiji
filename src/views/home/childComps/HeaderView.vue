@@ -1,7 +1,7 @@
 <template>
   <div class="header-view" v-if="userInfo.username">
     <div class="left">
-      <div class="icon">
+      <div class="icon" @click="logoClick">
         <i class="el-icon-s-fold"></i>
       </div>
       <h1 class="logo"></h1>
@@ -45,6 +45,9 @@ export default {
       }).then(() => {
         this.$emit('userExit')
       }).catch(() => {})
+    },
+    logoClick() {
+      this.$emit('logoClick')
     }
   },
 }
@@ -63,6 +66,10 @@ export default {
     align-items: center;
     .icon {
       font-size: 24px;
+      &:hover {
+        color: #409EFF
+        cursor: pointer;
+      }
     }
     h1.logo {
       width: 33px;

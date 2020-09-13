@@ -1,11 +1,17 @@
 <template>
   <el-container class="home">
     <el-header class="header">
-      <header-view :user-info="userInfo" @userExit="userExit" />
+      <header-view 
+      :user-info="userInfo" 
+      @userExit="userExit"
+      @logoClick="logoClick" 
+      />
     </el-header>
     
     <el-container>
-      <el-aside width="200px" class="aside">Aside</el-aside>
+      <el-aside width="auto" class="aside">
+        <aside-view ref="asideBar" />
+      </el-aside>
       <el-main class="main">Main</el-main>
     </el-container>
   </el-container>
@@ -13,6 +19,7 @@
 
 <script>
 import HeaderView from './childComps/HeaderView'
+import AsideView from './childComps/AsideView'
 
 import { getUserInfo, userExit } from 'network/home'
 import { getLocal, removeLocal, tips } from 'common/utils'
@@ -25,7 +32,8 @@ export default {
     }
   },
   components: {
-    HeaderView
+    HeaderView,
+    AsideView
   },
   created() {
     // 判断有无token
@@ -56,6 +64,9 @@ export default {
        if (!getLocal('token')) {
          return this.$router.replace('login')
        }
+     },
+     logoClick() {
+       this.$refs.asideBar.isCollapse = !this.$refs.asideBar.isCollapse
      }
   },
 }
