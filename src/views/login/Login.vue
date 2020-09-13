@@ -2,7 +2,7 @@
   <div class="login">
     <div class="left">
       <login-title />
-      <login-input @register="toRegister" />
+      <login-input @register="toRegister" @login="login" />
     </div>
     <div class="right">
       <img src="~assets/img/login/login_banner_ele.png" alt="" />
@@ -16,6 +16,8 @@ import LoginInput from './childComps/LoginInput'
 import LoginTitle from './childComps/LoginTitle'
 import Register from 'views/register/Register'
 
+import { login } from 'network/login'
+
 export default {
   name: 'Login',
   components: {
@@ -24,6 +26,18 @@ export default {
     Register
   },
   methods: {
+    /**
+     * 	网络请求相关方法
+     */
+    async login(data) {
+      const res = await login(data)
+      console.log(res);
+    },
+
+    /**
+     * 	事件相关方法
+     */
+    // 点击注册
     toRegister(dialogVisible) {
       this.$refs.register.dialogVisible = dialogVisible
     }

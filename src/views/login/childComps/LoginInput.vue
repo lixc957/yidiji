@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import { submitFormMixin, regFromMixin } from 'common/mixin'
+import { regFromMixin } from 'common/mixin'
 
 export default {
   name: 'LoginInput',
-  mixins: [submitFormMixin, regFromMixin],
+  mixins: [regFromMixin],
   data () {
     return {
       loginForm: {
@@ -93,6 +93,14 @@ export default {
     // 点击验证码
     codeImgClick () {
       this.codeUrl = this.baseUrl + '/captcha?type=login&msg=' + Date.now()
+    },
+    // 表单验证
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$emit('login', this.loginForm)
+        } 
+      })
     },
   }
 }

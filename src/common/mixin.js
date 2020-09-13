@@ -1,15 +1,3 @@
-export const submitFormMixin = {
-  methods: {
-    // 表单验证
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$emit('register', this.registerForm)
-        } 
-      })
-    }
-  }
-}
 
 export const regFromMixin = {
   data() {

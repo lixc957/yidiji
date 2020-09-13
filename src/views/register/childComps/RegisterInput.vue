@@ -64,11 +64,11 @@
 <script>
 import RegisterUpload from './RegisterUpload'
 
-import { submitFormMixin, regFromMixin } from 'common/mixin'
+import { regFromMixin } from 'common/mixin'
 
 export default {
   name: 'RegisterInput',
-  mixins: [submitFormMixin, regFromMixin],
+  mixins: [regFromMixin],
   data () {
     return {
       registerForm: {
@@ -134,6 +134,15 @@ export default {
           // 发射事件
           this.$emit('getCode', this.registerForm.code, this.registerForm.phone)
         }
+      })
+    },
+
+    // 表单验证
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$emit('register', this.registerForm)
+        } 
       })
     },
 
