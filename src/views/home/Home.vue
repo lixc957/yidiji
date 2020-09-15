@@ -52,7 +52,8 @@ export default {
      */
     async getUserInfo() {
       const res = await getUserInfo()
-      this.userInfo = res.data.data
+      this.$store.state.userInfo = res.data.data
+      this.userInfo = this.$store.state.userInfo
     },
     async userExit() {
        await userExit()

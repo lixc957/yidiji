@@ -7,11 +7,11 @@ import Login from 'views/login/Login'
 import Error from 'components/common/Error'
 
 const Home = () => import(/* webpackChunkName: 'home' */ 'views/home/Home')
-const HomeData = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/main/HomeData')
-const HomeUser = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/main/HomeUser')
-const HomeQuestion = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/main/HomeQuestion')
-const HomeSubject = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/main/HomeSubject')
-const HomeBusiness = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/main/HomeBusiness')
+const HomeData = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/data/HomeData')
+const HomeUser = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/user/HomeUser')
+const HomeQuestion = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/question/HomeQuestion')
+const HomeSubject = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/subject/HomeSubject')
+const HomeBusiness = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/business/HomeBusiness')
 
 Vue.use(VueRouter)
 
