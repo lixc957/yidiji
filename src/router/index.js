@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 import Login from 'views/login/Login'
 import Error from 'components/common/Error'
@@ -85,9 +87,16 @@ const router = new VueRouter({
   routes
 })
 
-router.afterEach((to, from) => {
-  console.log(to, from)
+// 配置路由进度条
+router.beforeEach((to, from, next) => {
+  Nprogress.start()
+  next()
 })
+
+router.afterEach((to, from) => {
+  Nprogress.done()
+})
+
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {

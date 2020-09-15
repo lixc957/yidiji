@@ -6,4 +6,7 @@
 
 <style>
 @import url('./assets/css/base.css');
+.spinner {
+  display: none !important;
+}
 </style>
