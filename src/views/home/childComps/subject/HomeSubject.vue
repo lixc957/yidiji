@@ -1,55 +1,54 @@
 <template>
-  <div class="subject-list">
-    <el-card>
-      <el-form :model="searchForm" ref="searchForm" class="search-form" inline>
-        <el-form-item label="学科编号">
-          <el-input v-model.trim.lazy="searchForm.rid" class="search-input"></el-input>
-        </el-form-item>
-        <el-form-item label="学科名称">
-          <el-input v-model.trim.lazy="searchForm.username" class="search-input"></el-input>
-        </el-form-item>
-        <el-form-item label="创建者">
-          <el-input v-model.trim.lazy="searchForm.name" class="search-input"></el-input>
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="searchForm.status" placeholder="请选择" class="search-input">
-            <el-option label="禁用" value="0"></el-option>
-            <el-option label="启用" value="1"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item class="search-btn">
-          <el-button type="primary">搜索</el-button>
-          <el-button>清除</el-button>
-          <el-button type="primary">+ 新增学科</el-button>
-        </el-form-item>
-      </el-form>
+  <div class="subject">
+    <el-card class="subject-header">
+      <subject-header />
+    </el-card>
+
+    <el-card class="subject-body">
+      <subject-body :subject-list="subjectList" />
     </el-card>
   </div>
 </template>
 
 <script>
+import SubjectHeader from './SubjectHeader'
+import SubjectBody from './SubjectBody'
+
+import { getSubjectList } from 'network/subject'
+
 export default {
   name: 'HomeSubject',
   data() {
     return {
-      searchForm: {
-        rid:'', //	否	string	学科编号
-        name:'', //	否	string	学科名称
-        username:'', //	否	string	创建者用户名
-        status:'', //	否	string	状态 0(禁用) 1(启用)
-        page:'', //	否	string	页码 默认为1
-        limit:'' //	否	string	页尺寸 默认为10
-      }
+      subjectList: []
     }
   },
+  created() {
+    this.getSubjectList()
+  },
+  methods: {
+    async getSubjectList() {
+      const res = await getSubjectList()
+      const data = res.data.data.items
+      this.subjectList = data.map(item => ({
+        rid: item.rid,
+        name: item.name,
+        short_name: item.short_name,
+        username: item.username,
+        status: item.status,
+        create_time: item.create_time
+      }))
+    }
+  },
+  components: {
+    SubjectHeader,
+    SubjectBody
+  }
 }
 </script>
 
 <style>
-
-
-.search-form .search-input {
-  width: 120px;
+.subject-body {
+  margin-top: 20px;
 }
-
 </style>
