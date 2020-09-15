@@ -20,7 +20,10 @@ const routes = [
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+      title: '用户登录'
+    }
   },
   {
     path: '/home',
@@ -32,29 +35,47 @@ const routes = [
       },
       {
         path: '/home/data',
-        component: HomeData
+        component: HomeData,
+        meta: {
+          title: '数据概览'
+        }
       },
       {
         path: '/home/user',
-        component: HomeUser
+        component: HomeUser,
+        meta: {
+          title: '用户列表'
+        }
       },
       {
         path: '/home/question',
-        component: HomeQuestion
-      },
-      {
-        path: '/home/subject',
-        component: HomeSubject
+        component: HomeQuestion,
+        meta: {
+          title: '题库列表'
+        }
       },
       {
         path: '/home/business',
-        component: HomeBusiness
+        component: HomeBusiness,
+        meta: {
+          title: '企业列表'
+        }
+      },
+      {
+        path: '/home/subject',
+        component: HomeSubject,
+        meta: {
+          title: '学科列表'
+        }
       }
     ]
   },
   {
     path: '*',
-    component: Error
+    component: Error,
+    meta: {
+      title: '404'
+    }
   }
 ]
 
@@ -62,6 +83,10 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.afterEach((to, from) => {
+  console.log(to, from)
 })
 
 const originalPush = VueRouter.prototype.push

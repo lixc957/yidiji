@@ -58,7 +58,7 @@ export default {
        await userExit()
        removeLocal('token')
        tips('退出成功', 'success')
-       this.$router.replace('login')
+       this.$router.replace('/login')
      },
 
     /**
