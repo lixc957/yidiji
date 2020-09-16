@@ -3,7 +3,7 @@
     <el-table :data="subjectList" v-if="subjectList.length">
       <el-table-column label="序号" width="50px">
         <template v-slot="scope">
-          {{ scope.$index + 1 }}
+          {{ (pagination.currentPage - 1) * pagination.pageSize + scope.$index + 1 }}
         </template>
       </el-table-column>
       <el-table-column

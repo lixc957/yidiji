@@ -17,8 +17,8 @@
         <el-input v-model.lazy.trim="addSubjectForm.name"></el-input>
       </el-form-item>
 
-      <el-form-item class="input-item" label="学科简称" prop="short">
-        <el-input v-model.lazy.trim="addSubjectForm.short"></el-input>
+      <el-form-item class="input-item" label="学科简称" prop="short_name">
+        <el-input v-model.lazy.trim="addSubjectForm.short_name"></el-input>
       </el-form-item>
 
       <el-form-item class="input-item" label="学科简介" prop="intro">
@@ -54,7 +54,7 @@ export default {
       addSubjectForm: {
         rid: '', //	是	string	学科编号
         name: '', //	是	string	学科名称
-        short: '', //_name	否	string	学科简称
+        short_name: '', //_name	否	string	学科简称
         intro: '', //	否	string	学科简介
         remark: '', //	否	string	备注
       },
@@ -65,7 +65,7 @@ export default {
         name: [
           { required: true, message: '请输入学科名称', trigger: 'blur' }
         ],
-        short: [
+        short_name: [
           { required: true, message: '请输入学科简称', trigger: 'blur' }
         ]
       }

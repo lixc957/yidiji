@@ -82,16 +82,17 @@ export default {
       }))
     },
     // 点击启用禁用文本
-    setStatus(id) {
-      setSubjectStatus({ id }).then(() => {
-        tips('修改状态成功', 'success')
-        this.getSubjectList()
-      })
+    async setStatus(id) {
+      await setSubjectStatus({ id })      
+      tips('修改状态成功', 'success')
+      this.getSubjectList()
     },
 
     async add(data) {
-      //await addSubject(data)
+      await addSubject(data)
       tips('新增成功', 'success')
+      this.$refs.subjectAdd.dialogVisible = false
+      this.searchSubject()
     },
 
     /**
