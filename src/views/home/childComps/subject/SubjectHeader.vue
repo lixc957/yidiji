@@ -39,18 +39,14 @@
 <script>
 export default {
   name: 'SubjectHeader',
-  data() {
-    return {
-      searchForm: {
-        rid:'', //	否	string	学科编号
-        name:'', //	否	string	学科名称
-        username:'', //	否	string	创建者用户名
-        status:'', //	否	string	状态 0(禁用) 1(启用)
-        page:'', //	否	string	页码 默认为1
-        limit:'' //	否	string	页尺寸 默认为10
-      },
+  props: {
+    searchForm: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
-  },
+  }
 }
 </script>
 

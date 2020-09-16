@@ -33,7 +33,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="pagination.currentPage"
-      :page-sizes="[10, 20, 30, 40]"
+      :page-sizes="[1, 5, 10, 20]"
       :page-size="pagination.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pagination.total"
@@ -52,25 +52,24 @@ export default {
       default () {
         return []
       }
-    }
-  },
-  data () {
-    return {
-      pagination: {
-        total: 40,
-        pageSize: 10,
-        currentPage: 1
+    },
+    pagination: {
+      type: Object,
+      default () {
+        return {}
       }
     }
   },
   methods: {
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`);
+    handleSizeChange (size) {
+      // 当前页容量
+      this.$emit('handleSizeChange', size)
     },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`);
+      // 当前页码
+      this.$emit('handleCurrentChange', val)
     }
-  },
+  }
 }
 </script>
 
