@@ -3,7 +3,11 @@
     <el-table :data="subjectList" v-if="subjectList.length">
       <el-table-column label="序号" width="50px">
         <template v-slot="scope">
-          {{ (pagination.currentPage - 1) * pagination.pageSize + scope.$index + 1 }}
+          {{
+            (pagination.currentPage - 1) * pagination.pageSize +
+            scope.$index +
+            1
+          }}
         </template>
       </el-table-column>
       <el-table-column
@@ -24,11 +28,15 @@
       </el-table-column>
       <el-table-column label="操作">
         <template v-slot="scope">
-          <el-button type="text" @click="editSubject(scope.row)">编辑</el-button>
-        <el-button type="text" @click="setStatus(scope.row.id)">
-          {{ scope.row.status === 0 ? '启用' : '禁用' }}
-        </el-button>
-        <el-button type="text">删除</el-button>
+          <el-button type="text" @click="editSubject(scope.row)"
+            >编辑</el-button
+          >
+          <el-button type="text" @click="setStatus(scope.row.id)">
+            {{ scope.row.status === 0 ? '启用' : '禁用' }}
+          </el-button>
+          <el-button type="text" @click="delSubject(scope.row.id)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -75,11 +83,20 @@ export default {
       // 当前页码
       this.$emit('handleCurrentChange', val)
     },
-    setStatus(id) {
+    setStatus (id) {
       this.$emit('setStatus', id)
     },
-    editSubject(row) {
+    editSubject (row) {
       this.$emit('editDialogVisible', row)
+    },
+    delSubject (id) {
+      this.$confirm('您确定删除吗?', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$emit('delSubject', id)
+      }).catch(() => { })  
     }
   }
 }

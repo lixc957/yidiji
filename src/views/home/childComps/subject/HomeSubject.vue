@@ -18,6 +18,7 @@
         @handleCurrentChange="handleCurrentChange"
         @setStatus="setStatus"
         @editDialogVisible="editDialogVisible"
+        @delSubject="remove"
         ref="subjectBody"
       />
     </el-card>
@@ -38,7 +39,7 @@ import SubjectHeader from './SubjectHeader'
 import SubjectBody from './SubjectBody'
 import SubjectAdd from './SubjectAdd'
 
-import { getSubjectList, setSubjectStatus, addSubject, editSubject } from 'network/subject'
+import { getSubjectList, setSubjectStatus, addSubject, editSubject, delSubject } from 'network/subject'
 import { tips } from 'common/utils'
 
 export default {
@@ -127,6 +128,12 @@ export default {
       } catch (error) {
         console.warn(error)
       }
+    },
+
+    async remove(id) {
+      await delSubject({ id })
+      tips('删除成功', 'success')
+      this.getSubjectList()
     },
 
     /**
