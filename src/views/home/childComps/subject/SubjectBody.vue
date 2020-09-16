@@ -24,7 +24,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template v-slot="scope">
-          <el-button type="text">编辑</el-button>
+          <el-button type="text" @click="editSubject(scope.row)">编辑</el-button>
         <el-button type="text" @click="setStatus(scope.row.id)">
           {{ scope.row.status === 0 ? '启用' : '禁用' }}
         </el-button>
@@ -77,6 +77,9 @@ export default {
     },
     setStatus(id) {
       this.$emit('setStatus', id)
+    },
+    editSubject(row) {
+      this.$emit('editDialogVisible', row)
     }
   }
 }
