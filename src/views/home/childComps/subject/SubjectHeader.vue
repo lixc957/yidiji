@@ -31,7 +31,7 @@
     <el-form-item class="search-btn">
       <el-button type="primary" @click="searchSubject">搜索</el-button>
       <el-button @click="resetForm">清除</el-button>
-      <el-button type="primary">+ 新增学科</el-button>
+      <el-button type="primary" @click="addSubject">+ 新增学科</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -55,6 +55,9 @@ export default {
       // 清空表单
       this.$refs.searchForm.resetFields()
       this.$emit('resetForm')
+    },
+    addSubject() {
+      this.$emit('addSubject')
     }
   },
 }

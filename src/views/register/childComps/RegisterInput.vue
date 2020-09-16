@@ -82,7 +82,7 @@ export default {
       },
       rules: {
         avatar: [
-          { required: true, message: '请上传头像', trigger: 'change' }
+          { required: true, message: '请上传头像', trigger: 'blur' }
         ],
         username: [
           { required: true, message: '请输入昵称', trigger: 'blur' },

@@ -6,6 +6,7 @@
       :search-form="searchForm"
       @searchSubject="searchSubject"
       @resetForm="resetForm" 
+      @addSubject="addSubject"
       />
     </el-card>
 
@@ -18,14 +19,17 @@
       @setStatus="setStatus"
       ref="subjectBody" />
     </el-card>
+
+    <subject-add ref="subjectAdd" @addSubject="add" />
   </div>
 </template>
 
 <script>
 import SubjectHeader from './SubjectHeader'
 import SubjectBody from './SubjectBody'
+import SubjectAdd from './SubjectAdd'
 
-import { getSubjectList, setSubjectStatus } from 'network/subject'
+import { getSubjectList, setSubjectStatus, addSubject } from 'network/subject'
 import { tips } from 'common/utils'
 
 export default {
@@ -85,6 +89,11 @@ export default {
       })
     },
 
+    async add(data) {
+      //await addSubject(data)
+      tips('新增成功', 'success')
+    },
+
     /**
      * 	事件相关方法
      */
@@ -108,11 +117,16 @@ export default {
     // 点击清除
     resetForm() {
       this.searchSubject()
+    },
+    // 点击新增科目
+    addSubject() {
+      this.$refs.subjectAdd.dialogVisible = true
     }
   },
   components: {
     SubjectHeader,
-    SubjectBody
+    SubjectBody,
+    SubjectAdd
   }
 }
 </script>
