@@ -1,7 +1,11 @@
 <template>
   <div class="subject">
     <el-card class="subject-header">
-      <subject-header ref="subjectHeader" :search-form="searchForm" />
+      <subject-header 
+      ref="subjectHeader" 
+      :search-form="searchForm"
+      @searchSubject="searchSubject" 
+      />
     </el-card>
 
     <el-card class="subject-body">
@@ -84,6 +88,11 @@ export default {
     // 点击页码
     handleCurrentChange(val) {
       this.pagination.currentPage = val
+      this.getSubjectList()
+    },
+    // 点击搜索
+    searchSubject() {
+      this.pagination.currentPage = 1
       this.getSubjectList()
     }
   },

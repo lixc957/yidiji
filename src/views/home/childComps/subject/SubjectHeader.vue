@@ -29,7 +29,7 @@
       </el-select>
     </el-form-item>
     <el-form-item class="search-btn">
-      <el-button type="primary">搜索</el-button>
+      <el-button type="primary" @click="searchSubject">搜索</el-button>
       <el-button>清除</el-button>
       <el-button type="primary">+ 新增学科</el-button>
     </el-form-item>
@@ -42,11 +42,16 @@ export default {
   props: {
     searchForm: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     }
-  }
+  },
+  methods: {
+    searchSubject () {
+      this.$emit('searchSubject')
+    }
+  },
 }
 </script>
 
