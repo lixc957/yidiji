@@ -4,7 +4,8 @@
       <subject-header 
       ref="subjectHeader" 
       :search-form="searchForm"
-      @searchSubject="searchSubject" 
+      @searchSubject="searchSubject"
+      @resetForm="resetForm" 
       />
     </el-card>
 
@@ -14,6 +15,7 @@
       :pagination="pagination"
       @handleSizeChange="handleSizeChange"
       @handleCurrentChange="handleCurrentChange"
+      @setStatus="setStatus"
       ref="subjectBody" />
     </el-card>
   </div>
@@ -23,7 +25,8 @@
 import SubjectHeader from './SubjectHeader'
 import SubjectBody from './SubjectBody'
 
-import { getSubjectList } from 'network/subject'
+import { getSubjectList, setSubjectStatus } from 'network/subject'
+import { tips } from 'common/utils'
 
 export default {
   name: 'HomeSubject',
@@ -74,6 +77,13 @@ export default {
         create_time: item.create_time
       }))
     },
+    // 点击启用禁用文本
+    setStatus(id) {
+      setSubjectStatus({ id }).then(() => {
+        tips('修改状态成功', 'success')
+        this.getSubjectList()
+      })
+    },
 
     /**
      * 	事件相关方法
@@ -94,6 +104,10 @@ export default {
     searchSubject() {
       this.pagination.currentPage = 1
       this.getSubjectList()
+    },
+    // 点击清除
+    resetForm() {
+      this.searchSubject()
     }
   },
   components: {

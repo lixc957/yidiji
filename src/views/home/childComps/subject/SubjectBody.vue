@@ -23,11 +23,17 @@
         </template>
       </el-table-column>
       <el-table-column label="操作">
-        <el-button type="text">编辑</el-button>
-        <el-button type="text">禁用</el-button>
+        <template v-slot="scope">
+          <el-button type="text">编辑</el-button>
+        <el-button type="text" @click="setStatus(scope.row.id)">
+          {{ scope.row.status === 0 ? '启用' : '禁用' }}
+        </el-button>
         <el-button type="text">删除</el-button>
+        </template>
       </el-table-column>
     </el-table>
+
+    <div v-else class="no-data">暂无数据</div>
 
     <el-pagination
       @size-change="handleSizeChange"
@@ -68,6 +74,9 @@ export default {
     handleCurrentChange (val) {
       // 当前页码
       this.$emit('handleCurrentChange', val)
+    },
+    setStatus(id) {
+      this.$emit('setStatus', id)
     }
   }
 }
@@ -80,6 +89,10 @@ export default {
 
 .pagination {
   margin-top: 40px;
+  text-align: center;
+}
+
+.no-data {
   text-align: center;
 }
 </style>
