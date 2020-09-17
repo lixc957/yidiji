@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { homeHeaderMixin } from 'common/mixin'
+import { homeMainHeaderMixin } from 'common/mixin'
 
 export default {
   name: 'SubjectHeader',
@@ -49,7 +49,7 @@ export default {
       }
     }
   },
-  mixins: [homeHeaderMixin]
+  mixins: [homeMainHeaderMixin]
 }
 </script>
 

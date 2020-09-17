@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { homeBodyMixin } from 'common/mixin'
+import { homeMainBodyMixin } from 'common/mixin'
 
 export default {
   name: 'SubjectBody',
@@ -89,7 +89,7 @@ export default {
       }
     }
   },
-  mixins: [homeBodyMixin]
+  mixins: [homeMainBodyMixin]
 }
 </script>
 

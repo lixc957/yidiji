@@ -43,7 +43,7 @@ export const regFromMixin = {
  * 	通用方法
  */
 
-export const homeHeaderMixin = {
+export const homeMainHeaderMixin = {
   methods: {
     resetForm() {
       // 清空表单
@@ -59,7 +59,7 @@ export const homeHeaderMixin = {
   },
 }
 
-export const homeBodyMixin = {
+export const homeMainBodyMixin = {
   methods: {
     handleSizeChange (size) {
       // 当前页容量
