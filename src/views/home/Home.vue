@@ -13,9 +13,7 @@
         <aside-view ref="asideBar" />
       </el-aside>
       <el-main class="main">
-        <keep-alive>
-          <router-view />
-        </keep-alive>
+        <router-view />
       </el-main>
     </el-container>
   </el-container>
