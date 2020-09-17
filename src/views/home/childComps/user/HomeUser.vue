@@ -1,33 +1,42 @@
 <template>
   <div class="user-list">
     <el-card class="user-header">
-      <user-header ref="userHeader" 
-      :search-form="searchForm"
-      @search="searchUser"
-      @resetForm="resetForm"
-      @add="addUser" 
-    />
+      <user-header
+        ref="userHeader"
+        :search-form="searchForm"
+        @search="searchUser"
+        @resetForm="resetForm"
+        @add="increment"
+      />
     </el-card>
 
     <el-card class="user-body">
-      <user-body ref="UserBody" 
-      :user-list="userList"
-      :pagination="pagination"
-      @handleSizeChange="handleSizeChange"
-      @handleCurrentChange="handleCurrentChange"
-      @setStatus="setStatus"
-       />
+      <user-body
+        ref="UserBody"
+        :user-list="userList"
+        :pagination="pagination"
+        @handleSizeChange="handleSizeChange"
+        @handleCurrentChange="handleCurrentChange"
+        @setStatus="setStatus"
+      />
     </el-card>
+
+    <user-add
+      ref="userAdd"
+      :add-user-form="addUserForm"
+      :mode="mode"
+    />
   </div>
 </template>
 
 <script>
 import UserHeader from './UserHeader'
 import UserBody from './UserBody'
+import UserAdd from './UserAdd'
 
 import {
-  getUserList, 
-  setUserStatus 
+  getUserList,
+  setUserStatus
 } from 'network/user'
 import { tips } from 'common/utils'
 
@@ -50,6 +59,15 @@ export default {
         pageSize: 5,
         currentPage: 1
       },
+      // 模态框
+      addUserForm: {
+        username: '', //	是	string	用户名
+        email: '', //	是	string	邮箱
+        phone: '', //	是	string	手机号
+        role_id: '', //	是	string	角色 、2 管理员、3 老师、4 学生
+        status: '', //	否	string	1(启用)0(禁用)
+        remark: '' //	否	string	备注
+      }
     }
   },
   created () {
@@ -103,14 +121,15 @@ export default {
       this.searchUser()
     },
     // 点击新增科目
-    addUser () {
+    increment () {
       this.mode = 'add'
-      // this.$refs.subjectAdd.dialogVisible = true
+      this.$refs.userAdd.dialogVisible = true
     }
   },
   components: {
     UserHeader,
-    UserBody
+    UserBody,
+    UserAdd
   }
 }
 </script>

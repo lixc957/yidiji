@@ -86,3 +86,30 @@ export const homeMainBodyMixin = {
     }
   },
 }
+
+export const homeMainAddMixin = {
+  watch: {
+    // 清空表单
+    dialogVisible (newVal) {
+      if (!newVal) {
+        this.$emit('isDialogVisible')
+      }
+    }
+  },
+  methods: {
+    submitForm (formName, data) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.mode === 'add') {
+            this.$emit('add', data)
+          } else if (this.mode === 'edit') {
+            this.$emit('edit', data)
+          }
+        }
+      })
+    },
+    resetFields(formName) {
+      this.$refs[formName].resetFields()
+    }
+  }
+}

@@ -38,7 +38,7 @@
 
     <div slot="footer" class="dialog-footer footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="submitForm('addSubjectForm')"
+      <el-button type="primary" @click="submitForm('addSubjectForm', addSubjectForm)"
         >确 定</el-button
       >
     </div>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { homeMainAddMixin } from 'common/mixin'
+
 export default {
   name: 'SubjectAdd',
   props: {
@@ -76,31 +78,7 @@ export default {
       }
     }
   },
-  watch: {
-    // 清空表单
-    dialogVisible (newVal) {
-      if (!newVal) {
-        this.$emit('isDialogVisible')
-      }
-    }
-  },
-  methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          if (this.mode === 'add') {
-            this.$emit('addSubject', this.addSubjectForm)
-          } else if (this.mode === 'edit') {
-            this.$emit('editSubject', this.addSubjectForm)
-          }
-        }
-      })
-    },
-    resetFields() {
-      this.$refs.addSubjectForm.resetFields()
-    }
-  },
-  
+  mixins: [homeMainAddMixin] 
 }
 </script>
 

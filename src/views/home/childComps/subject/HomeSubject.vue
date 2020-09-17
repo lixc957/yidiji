@@ -6,7 +6,7 @@
         :search-form="searchForm"
         @search="searchSubject"
         @resetForm="resetForm"
-        @add="addSubject"
+        @add="increment"
       />
     </el-card>
 
@@ -25,8 +25,8 @@
 
     <subject-add
       ref="subjectAdd"
-      @addSubject="add"
-      @editSubject="edit"
+      @add="addSubject"
+      @edit="editSubject"
       @isDialogVisible="isDialogVisible"
       :add-subject-form="addSubjectForm"
       :mode="mode"
@@ -113,7 +113,7 @@ export default {
       this.getSubjectList()
     },
 
-    async add (data) {
+    async addSubject (data) {
       try {
         this.mode = 'add'
         await addSubject(data)
@@ -125,7 +125,7 @@ export default {
       }
     },
 
-    async edit (data) {
+    async editSubject (data) {
       try {
         await editSubject(this.addSubjectForm)
         tips('编辑成功', 'success')
@@ -173,7 +173,7 @@ export default {
         intro: '',
         remark: '',
       }
-      this.$refs.subjectAdd.resetFields()
+      this.$refs.subjectAdd.resetFields('addSubjectForm')
     },
     // 点击搜索
     searchSubject () {
@@ -185,7 +185,7 @@ export default {
       this.searchSubject()
     },
     // 点击新增科目
-    addSubject () {
+    increment () {
       this.mode = 'add'
       this.$refs.subjectAdd.dialogVisible = true
     }
