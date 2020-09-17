@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { homeHeaderMixin } from 'common/mixin'
+
 export default {
   name: 'SubjectHeader',
   props: {
@@ -47,14 +49,10 @@ export default {
       }
     }
   },
+  mixins: [homeHeaderMixin],
   methods: {
     searchSubject () {
       this.$emit('searchSubject')
-    },
-    resetForm() {
-      // 清空表单
-      this.$refs.searchForm.resetFields()
-      this.$emit('resetForm')
     },
     addSubject() {
       this.$emit('addSubject')
