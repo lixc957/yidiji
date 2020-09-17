@@ -50,5 +50,39 @@ export const homeHeaderMixin = {
       this.$refs.searchForm.resetFields()
       this.$emit('resetForm')
     },
+    search () {
+      this.$emit('search')
+    },
+    add() {
+      this.$emit('add')
+    }
+  },
+}
+
+export const homeBodyMixin = {
+  methods: {
+    handleSizeChange (size) {
+      // 当前页容量
+      this.$emit('handleSizeChange', size)
+    },
+    handleCurrentChange (val) {
+      // 当前页码
+      this.$emit('handleCurrentChange', val)
+    },
+    setStatus (id) {
+      this.$emit('setStatus', id)
+    },
+    edit (row) {
+      this.$emit('editDialogVisible', row)
+    },
+    del (id) {
+      this.$confirm('您确定删除吗?', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$emit('del', id)
+      }).catch(() => { })  
+    }
   },
 }

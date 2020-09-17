@@ -24,9 +24,9 @@
       </el-select>
     </el-form-item>
     <el-form-item class="search-btn">
-      <el-button type="primary" @click="searchUser">搜索</el-button>
+      <el-button type="primary" @click="search">搜索</el-button>
       <el-button @click="resetForm">清除</el-button>
-      <el-button type="primary" @click="addUser">+ 新增用户</el-button>
+      <el-button type="primary" @click="add">+ 新增用户</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -44,15 +44,7 @@ export default {
       }
     }
   },
-  mixins: [homeHeaderMixin],
-  methods: {
-    searchUser() {
-      this.$emit('searchUser')
-    },
-    addUser() {
-      this.$emit('addUser')
-    }
-  },
+  mixins: [homeHeaderMixin]
 }
 </script>
 

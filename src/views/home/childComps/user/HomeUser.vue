@@ -1,21 +1,42 @@
 <template>
   <div class="user-list">
     <el-card class="user-header">
-      <user-header ref="userHeader" :search-form="searchForm" />
+      <user-header ref="userHeader" 
+      :search-form="searchForm"
+      @search="searchUser"
+      @resetForm="resetForm"
+      @add="addUser" 
+    />
+    </el-card>
+
+    <el-card class="user-body">
+      <user-body ref="UserBody" 
+      :user-list="userList"
+      :pagination="pagination"
+      @handleSizeChange="handleSizeChange"
+      @handleCurrentChange="handleCurrentChange"
+      @setStatus="setStatus"
+       />
     </el-card>
   </div>
 </template>
 
 <script>
 import UserHeader from './UserHeader'
+import UserBody from './UserBody'
 
-import { getUserList } from 'network/user'
+import {
+  getUserList, 
+  setUserStatus 
+} from 'network/user'
+import { tips } from 'common/utils'
 
 export default {
   name: 'HomeUser',
   data () {
     return {
       userList: [],
+      mode: 'add',
       searchForm: {
         username: '', //	否	string	昵称
         email: '', //	否	string	邮箱
@@ -26,7 +47,7 @@ export default {
       // 分页器
       pagination: {
         total: 10,
-        pageSize: 1,
+        pageSize: 5,
         currentPage: 1
       },
     }
@@ -50,12 +71,52 @@ export default {
       this.pagination.total = res.data.data.pagination.total
       this.userList = data
     },
+    // 点击启用禁用文本
+    async setStatus (id) {
+      await setUserStatus({ id })
+      tips('修改状态成功', 'success')
+      this.getUserList()
+    },
+
+    /**
+     * 	事件相关方法
+     */
+    // 改变页容量
+    handleSizeChange (size) {
+      this.pagination.pageSize = size
+      // 页容量改变时，页码都变成1
+      this.pagination.currentPage = 1
+      this.getUserList()
+    },
+    // 点击页码
+    handleCurrentChange (val) {
+      this.pagination.currentPage = val
+      this.getUserList()
+    },
+    // 点击搜索
+    searchUser () {
+      this.pagination.currentPage = 1
+      this.getUserList()
+    },
+    // 点击清除
+    resetForm () {
+      this.searchUser()
+    },
+    // 点击新增科目
+    addUser () {
+      this.mode = 'add'
+      // this.$refs.subjectAdd.dialogVisible = true
+    }
   },
   components: {
-    UserHeader
+    UserHeader,
+    UserBody
   }
 }
 </script>
 
-<style scoped>
+<style>
+.user-body {
+  margin-top: 20px;
+}
 </style>

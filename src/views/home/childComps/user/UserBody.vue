@@ -13,7 +13,6 @@
       <el-table-column
         label="用户名"
         prop="username"
-        width="100px"
       ></el-table-column>
       <el-table-column label="电话" prop="phone"></el-table-column>
       <el-table-column label="邮箱" prop="email"></el-table-column>
@@ -28,20 +27,35 @@
       </el-table-column>
       <el-table-column label="操作">
         <template v-slot="scope">
-          <el-button type="text"
+          <el-button type="text" @click="edit(scope.row)"
             >编辑</el-button
           >
-          <el-button type="text">
+          <el-button type="text" @click="setStatus(scope.row.id)">
             {{ scope.row.status === 0 ? '启用' : '禁用' }}
           </el-button>
-          <el-button type="text"
+          <el-button type="text" @click="del(scope.row.id)"
             >删除</el-button
           >
         </template>
       </el-table-column>
     </el-table>
 
-    <div v-else class="no-data">暂无数据</div>
+    <el-table v-else>
+      <el-table-column label="序号" width="50px">
+      </el-table-column>
+      <el-table-column
+        label="用户名"
+        prop="username"
+      ></el-table-column>
+      <el-table-column label="电话" prop="phone"></el-table-column>
+      <el-table-column label="邮箱" prop="email"></el-table-column>
+      <el-table-column label="角色" prop="role"></el-table-column>
+      <el-table-column label="备注" prop="create_time"></el-table-column>
+      <el-table-column label="状态" width="100px">
+      </el-table-column>
+      <el-table-column label="操作">
+      </el-table-column>
+    </el-table>
 
     <el-pagination
       @size-change="handleSizeChange"
@@ -58,6 +72,8 @@
 </template>
 
 <script>
+import { homeBodyMixin } from 'common/mixin'
+
 export default {
   name: 'UserBody',
   props: {
@@ -73,9 +89,18 @@ export default {
         return {}
       }
     }
-  }
+  },
+  mixins: [homeBodyMixin]
 }
 </script>
 
-<style scoped>
+<style>
+.isDisabled {
+  color: red;
+}
+
+.pagination {
+  margin-top: 40px;
+  text-align: center;
+}
 </style>

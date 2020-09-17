@@ -28,20 +28,33 @@
       </el-table-column>
       <el-table-column label="操作">
         <template v-slot="scope">
-          <el-button type="text" @click="editSubject(scope.row)"
+          <el-button type="text" @click="edit(scope.row)"
             >编辑</el-button
           >
           <el-button type="text" @click="setStatus(scope.row.id)">
             {{ scope.row.status === 0 ? '启用' : '禁用' }}
           </el-button>
-          <el-button type="text" @click="delSubject(scope.row.id)"
+          <el-button type="text" @click="del(scope.row.id)"
             >删除</el-button
           >
         </template>
       </el-table-column>
     </el-table>
 
-    <div v-else class="no-data">暂无数据</div>
+    <el-table v-else>
+      <el-table-column label="序号" width="50px"></el-table-column>   
+      <el-table-column
+        label="学科编号"
+        width="100px"
+      ></el-table-column>
+      <el-table-column label="学科名称"></el-table-column>
+      <el-table-column label="简称"></el-table-column>
+      <el-table-column label="创建者"></el-table-column>
+      <el-table-column label="创建日期"></el-table-column>
+      <el-table-column label="状态" width="100px"></el-table-column>  
+      <el-table-column label="操作"></el-table-column>
+      
+    </el-table>
 
     <el-pagination
       @size-change="handleSizeChange"
@@ -58,6 +71,8 @@
 </template>
 
 <script>
+import { homeBodyMixin } from 'common/mixin'
+
 export default {
   name: 'SubjectBody',
   props: {
@@ -74,31 +89,7 @@ export default {
       }
     }
   },
-  methods: {
-    handleSizeChange (size) {
-      // 当前页容量
-      this.$emit('handleSizeChange', size)
-    },
-    handleCurrentChange (val) {
-      // 当前页码
-      this.$emit('handleCurrentChange', val)
-    },
-    setStatus (id) {
-      this.$emit('setStatus', id)
-    },
-    editSubject (row) {
-      this.$emit('editDialogVisible', row)
-    },
-    delSubject (id) {
-      this.$confirm('您确定删除吗?', '温馨提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$emit('delSubject', id)
-      }).catch(() => { })  
-    }
-  }
+  mixins: [homeBodyMixin]
 }
 </script>
 
@@ -109,10 +100,6 @@ export default {
 
 .pagination {
   margin-top: 40px;
-  text-align: center;
-}
-
-.no-data {
   text-align: center;
 }
 </style>

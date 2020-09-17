@@ -4,9 +4,9 @@
       <subject-header
         ref="subjectHeader"
         :search-form="searchForm"
-        @searchSubject="searchSubject"
+        @search="searchSubject"
         @resetForm="resetForm"
-        @addSubject="addSubject"
+        @add="addSubject"
       />
     </el-card>
 
@@ -18,7 +18,7 @@
         @handleCurrentChange="handleCurrentChange"
         @setStatus="setStatus"
         @editDialogVisible="editDialogVisible"
-        @delSubject="remove"
+        @del="remove"
         ref="subjectBody"
       />
     </el-card>
@@ -199,6 +199,12 @@ export default {
 </script>
 
 <style>
+.subject-header .search-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .subject-body {
   margin-top: 20px;
 }
