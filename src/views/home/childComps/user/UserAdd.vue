@@ -29,9 +29,12 @@
           placeholder="请选择角色"
           class="search-input"
         >
-          <el-option label="管理员" value="2"></el-option>
-          <el-option label="老师" value="3"></el-option>
-          <el-option label="学生" value="4"></el-option>
+          <el-option 
+          v-for="(value, key, index) in roleObj" 
+          :key="index"
+          :label="value" 
+          :value="key"></el-option>
+        
         </el-select>
       </el-form-item>
 
@@ -71,6 +74,12 @@ export default {
       default: 'add'
     },
     addUserForm: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    roleObj: {
       type: Object,
       default () {
         return {}

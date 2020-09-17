@@ -18,7 +18,7 @@
         @handleCurrentChange="handleCurrentChange"
         @setStatus="setStatus"
         @editDialogVisible="editDialogVisible"
-        @del="remove"
+        @del="delSubject"
         ref="subjectBody"
       />
     </el-card>
@@ -127,7 +127,7 @@ export default {
 
     async editSubject (data) {
       try {
-        await editSubject(this.addSubjectForm)
+        await editSubject(data)
         tips('编辑成功', 'success')
         this.$refs.subjectAdd.dialogVisible = false
         this.getSubjectList()
@@ -136,7 +136,7 @@ export default {
       }
     },
 
-    async remove (id) {
+    async delSubject (id) {
       await delSubject({ id })
       tips('删除成功', 'success')
       this.getSubjectList()

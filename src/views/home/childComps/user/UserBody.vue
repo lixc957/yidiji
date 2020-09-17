@@ -17,7 +17,7 @@
       <el-table-column label="电话" prop="phone"></el-table-column>
       <el-table-column label="邮箱" prop="email"></el-table-column>
       <el-table-column label="角色" prop="role"></el-table-column>
-      <el-table-column label="备注" prop="create_time"></el-table-column>
+      <el-table-column label="备注" prop="remark"></el-table-column>
       <el-table-column label="状态" width="100px">
         <template v-slot="scope">
           <span :class="{ isDisabled: scope.row.status === 0 }">{{

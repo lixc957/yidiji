@@ -18,6 +18,8 @@
         @handleSizeChange="handleSizeChange"
         @handleCurrentChange="handleCurrentChange"
         @setStatus="setStatus"
+        @editDialogVisible="editDialogVisible"
+        @del="delUser"
       />
     </el-card>
 
@@ -25,6 +27,10 @@
       ref="userAdd"
       :add-user-form="addUserForm"
       :mode="mode"
+      :role-obj="roleObj"
+      @isDialogVisible="isDialogVisible"
+      @add="addUser"
+      @edit="editUser"
     />
   </div>
 </template>
@@ -36,7 +42,10 @@ import UserAdd from './UserAdd'
 
 import {
   getUserList,
-  setUserStatus
+  setUserStatus,
+  addUser,
+  editUser,
+  delUser
 } from 'network/user'
 import { tips } from 'common/utils'
 
@@ -67,6 +76,13 @@ export default {
         role_id: '', //	是	string	角色 、2 管理员、3 老师、4 学生
         status: '', //	否	string	1(启用)0(禁用)
         remark: '' //	否	string	备注
+      },
+      // 角色信息
+      roleObj: {
+        1: '超级管理员',
+        2: '管理员',
+        3: '老师',
+        4: '学生'
       }
     }
   },
@@ -95,6 +111,32 @@ export default {
       tips('修改状态成功', 'success')
       this.getUserList()
     },
+    async addUser(data) {
+      try {
+        this.mode = 'add'
+        await addUser(data)
+        tips('新增成功', 'success')
+        this.$refs.userAdd.dialogVisible = false
+        this.searchUser()
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    async editUser (data) {
+      try {
+        await editUser(data)
+        tips('编辑成功', 'success')
+        this.$refs.userAdd.dialogVisible = false
+        this.getUserList()
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    async delUser (id) {
+      await delUser({ id })
+      tips('删除成功', 'success')
+      this.getUserList()
+    },
 
     /**
      * 	事件相关方法
@@ -111,6 +153,19 @@ export default {
       this.pagination.currentPage = val
       this.getUserList()
     },
+    // 模态框改变
+    isDialogVisible () {
+      // 字段还原
+      this.addUserForm = {
+        username: '',
+        email: '', 
+        phone: '', 
+        role_id: '', 
+        status: '', 
+        remark: '' 
+      }
+      this.$refs.userAdd.resetFields('addUserForm')
+    },
     // 点击搜索
     searchUser () {
       this.pagination.currentPage = 1
@@ -124,7 +179,13 @@ export default {
     increment () {
       this.mode = 'add'
       this.$refs.userAdd.dialogVisible = true
-    }
+    },
+    // 点击编辑打开模态框
+    editDialogVisible (data) {
+      this.mode = 'edit'
+      this.$refs.userAdd.dialogVisible = true
+      this.addUserForm = JSON.parse(JSON.stringify(data))
+    },
   },
   components: {
     UserHeader,
