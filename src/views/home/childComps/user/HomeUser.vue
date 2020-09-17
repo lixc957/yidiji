@@ -166,6 +166,12 @@ export default {
       }
       this.$refs.userAdd.resetFields('addUserForm')
     },
+    // 点击编辑打开模态框
+    editDialogVisible (data) {
+      this.mode = 'edit'
+      this.$refs.userAdd.dialogVisible = true
+      this.addUserForm = JSON.parse(JSON.stringify(data))
+    },
     // 点击搜索
     searchUser () {
       this.pagination.currentPage = 1
@@ -179,13 +185,8 @@ export default {
     increment () {
       this.mode = 'add'
       this.$refs.userAdd.dialogVisible = true
-    },
-    // 点击编辑打开模态框
-    editDialogVisible (data) {
-      this.mode = 'edit'
-      this.$refs.userAdd.dialogVisible = true
-      this.addUserForm = JSON.parse(JSON.stringify(data))
-    },
+    }
+    
   },
   components: {
     UserHeader,
