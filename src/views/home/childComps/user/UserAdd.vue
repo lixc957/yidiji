@@ -33,7 +33,7 @@
           v-for="(value, key, index) in roleObj" 
           :key="index"
           :label="value" 
-          :value="key"></el-option>
+          :value="index+1"></el-option>
         
         </el-select>
       </el-form-item>
@@ -44,8 +44,8 @@
           placeholder="请选择"
           class="search-input"
         >
-          <el-option label="禁用" value="0"></el-option>
-          <el-option label="启用" value="1"></el-option>
+          <el-option label="禁用" :value="0"></el-option>
+          <el-option label="启用" :value="1"></el-option>
         </el-select>
       </el-form-item>
 
