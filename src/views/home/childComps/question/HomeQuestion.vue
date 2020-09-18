@@ -10,6 +10,9 @@
         :type-obj="typeObj"
         :diff-obj="diffObj"
         :status-obj="statusObj"
+        @search="searchQuestion"
+        @resetForm="resetForm"
+        @add="increment"
       />
     </el-card>
 
@@ -96,12 +99,12 @@ export default {
     async getSubjectList () {
       const res = await getSubjectList({ limit: Infinity })
       const data = res.data.data.items
-      this.subjectList = data.map((item => ({ rid: item.rid, name: item.name })))
+      this.subjectList = data.map((item => ({ id: item.id, name: item.name })))
     },
     async getBusinessList () {
       const res = await getBusinessList({ limit: Infinity })
       const data = res.data.data.items
-      this.businessList = data.map((item => ({ eid: item.eid, name: item.name })))
+      this.businessList = data.map((item => ({ id: item.id, name: item.name })))
     },
     async getQuestionList () {
       // 传参
@@ -130,6 +133,20 @@ export default {
       this.pagination.currentPage = val
       this.getQuestionList()
     },
+    // 点击搜索
+    searchQuestion () {
+      this.pagination.currentPage = 1
+      this.getQuestionList()
+    },
+    // 点击清除
+    resetForm () {
+      this.searchQuestion()
+    },
+    // 点击新增科目
+    increment () {
+      // this.mode = 'add'
+      // this.$refs.userAdd.dialogVisible = true
+    }
   },
   components: {
     QuestionHeader,

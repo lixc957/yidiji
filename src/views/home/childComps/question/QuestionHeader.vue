@@ -7,7 +7,7 @@
   >
     <el-row>
       <el-col :span="5">
-        <el-form-item label="学科">
+        <el-form-item label="学科" prop="subject">
           <el-select
             v-model.trim.lazy="searchForm.subject"
             placeholder="请选择学科"
@@ -15,13 +15,13 @@
             <el-option 
             v-for="(item, index) in subjectList" 
             :key="index" 
-            :value="item.rid" 
+            :value="item.id" 
             :label="item.name"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="5">
-        <el-form-item label="阶段">
+        <el-form-item label="阶段" prop="step">
           <el-select
             v-model.trim.lazy="searchForm.step"
             placeholder="请选择阶段"
@@ -34,7 +34,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="5">
-        <el-form-item label="企业">
+        <el-form-item label="企业" prop="enterprise">
           <el-select
             v-model.trim.lazy="searchForm.enterprise"
             placeholder="请选择企业"
@@ -42,13 +42,13 @@
             <el-option 
             v-for="(item, index) in businessList" 
             :key="index" 
-            :value="item.eid" 
+            :value="item.id" 
             :label="item.name"></el-option>
           </el-select>
         </el-form-item>
       </el-col>
       <el-col :span="5">
-        <el-form-item label="题型">
+        <el-form-item label="题型" prop="type">
           <el-select
             v-model.trim.lazy="searchForm.type"
             placeholder="请选择题型"
@@ -65,7 +65,7 @@
 
     <el-row>
       <el-col :span="5">
-        <el-form-item label="难度">
+        <el-form-item label="难度" prop="difficulty">
           <el-select
             v-model.trim.lazy="searchForm.difficulty"
             placeholder="请选择难度"
@@ -78,12 +78,12 @@
         </el-form-item>
       </el-col>
       <el-col :span="5">
-        <el-form-item label="作者">
+        <el-form-item label="作者" prop="username">
           <el-input v-model.trim.lazy="searchForm.username"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="5">
-        <el-form-item label="状态">
+        <el-form-item label="状态" prop="status">
           <el-select
             v-model.trim.lazy="searchForm.status"
             placeholder="请选择状态"
@@ -96,7 +96,7 @@
         </el-form-item>
       </el-col>
       <el-col :span="5">
-        <el-form-item label="日期">
+        <el-form-item label="日期" prop="create_date">
           <el-date-picker 
           v-model.trim.lazy="searchForm.create_date" 
           type="date" 
@@ -110,15 +110,15 @@
 
     <el-row>
       <el-col :span="10">
-        <el-form-item label="标题">
+        <el-form-item label="标题" prop="title">
           <el-input v-model.trim.lazy="searchForm.title"></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="14">
         <el-form-item label-width="10px">
-          <el-button type="primary">搜索</el-button>
-          <el-button>清除</el-button>
-          <el-button type="primary">+ 新增用户</el-button>
+          <el-button type="primary" @click="search">搜索</el-button>
+          <el-button @click="resetForm">清除</el-button>
+          <el-button type="primary" @click="add">+ 新增用户</el-button>
         </el-form-item>
       </el-col>
     </el-row>
@@ -126,6 +126,8 @@
 </template>
 
 <script>
+import { homeMainHeaderMixin } from 'common/mixin'
+
 export default {
   name: 'QuestionHeader',
   props: {
@@ -171,7 +173,8 @@ export default {
         return {}
       }
     }
-  }
+  },
+  mixins: [homeMainHeaderMixin]
 }
 </script>
 
