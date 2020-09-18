@@ -65,7 +65,7 @@ export default {
      */
      getToken() {
        if (!getLocal('token')) {
-         return this.$router.replace('login')
+         return this.$router.replace('/login')
        }
      },
      logoClick() {
