@@ -17,6 +17,7 @@ import LoginTitle from './childComps/LoginTitle'
 import Register from 'views/register/Register'
 
 import { login } from 'network/login'
+import { getUserInfo } from 'network/home'
 import { setLocal, getLocal, tips } from 'common/utils'
 
 export default {
@@ -36,7 +37,6 @@ export default {
     async login (data) {
       try {
         const res = await login(data)
-        tips('登录成功', 'success')
         setLocal('token', res.data.data.token)
         this.$router.push('/home')
       } catch (error) {

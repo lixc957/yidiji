@@ -5,11 +5,18 @@
     :collapse="isCollapse"
     router
   >
-    <el-menu-item index="/home/data">
-      <i class="el-icon-pie-chart"></i>
-      <span slot="title">数据概况</span>
-    </el-menu-item>
-    <el-menu-item index="/home/user">
+    <template v-for="(item, index) in routerOpations">
+      <el-menu-item 
+      :key="index"
+      :index="item.path"
+      v-if="item.meta.roles.includes($store.state.role)"
+      >
+        <i :class="item.meta.icon"></i>
+        <span slot="title">{{item.meta.title}}</span>
+      </el-menu-item>
+    </template>
+    
+    <!-- <el-menu-item index="/home/user">
       <i class="el-icon-user"></i>
       <span slot="title">用户列表</span>
     </el-menu-item>
@@ -24,7 +31,7 @@
     <el-menu-item index="/home/subject">
       <i class="el-icon-notebook-2"></i>
       <span slot="title">学科列表</span>
-    </el-menu-item>
+    </el-menu-item> -->
   </el-menu>
 </template>
 
@@ -35,6 +42,18 @@ export default {
     return {
       isCollapse: false
     }
+  },
+  props: {
+    routerOpations: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
+  created() {
+    console.log(this.$router)
+    console.log(this.routerOpations)
   },
 }
 </script>

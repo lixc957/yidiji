@@ -24,50 +24,58 @@ const routes = [
     path: '/login',
     component: Login,
     meta: {
-      title: '用户登录'
+      title: '用户登录',
+      roles: ['超级管理员', '管理员', '老师', '学生']
     }
   },
   {
     path: '/home',
     component: Home,
+    redirect: '/home/subject',
     children: [
-      {
-        path: '/',
-        redirect: '/home/subject'
-      },
       {
         path: '/home/data',
         component: HomeData,
         meta: {
-          title: '数据概览'
+          title: '数据概览',
+          icon: 'el-icon-pie-chart',
+          roles: ['超级管理员', '管理员', '老师']
         }
       },
       {
         path: '/home/user',
         component: HomeUser,
         meta: {
-          title: '用户列表'
+          title: '用户列表',
+          icon: 'el-icon-user',
+          roles: ['超级管理员', '管理员']
         }
       },
       {
         path: '/home/question',
         component: HomeQuestion,
         meta: {
-          title: '题库列表'
+          title: '题库列表',
+          icon: 'el-icon-edit-outline',
+          roles: ['超级管理员', '管理员', '老师']
         }
       },
       {
         path: '/home/business',
         component: HomeBusiness,
         meta: {
-          title: '企业列表'
+          title: '企业列表',
+          icon: 'el-icon-office-building',
+          roles: ['超级管理员', '管理员', '老师']
         }
       },
       {
         path: '/home/subject',
         component: HomeSubject,
         meta: {
-          title: '学科列表'
+          title: '学科列表',
+          icon: 'el-icon-notebook-2',
+          roles: ['超级管理员', '管理员', '老师', '学生']
         }
       }
     ]
