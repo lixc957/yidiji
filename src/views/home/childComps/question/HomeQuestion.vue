@@ -1,25 +1,41 @@
 <template>
   <div class="question-list">
     <el-card class="question-header">
-      <question-header 
-      ref="questionHeader" 
-      :search-form="searchForm"
-      :subject-list="subjectList"
-      :business-list="businessList"
-      :step-obj="stepObj"
-      :type-obj="typeObj"
-      :diff-obj="diffObj"
-      :status-obj="statusObj"
-       />
+      <question-header
+        ref="questionHeader"
+        :search-form="searchForm"
+        :subject-list="subjectList"
+        :business-list="businessList"
+        :step-obj="stepObj"
+        :type-obj="typeObj"
+        :diff-obj="diffObj"
+        :status-obj="statusObj"
+      />
+    </el-card>
+
+    <el-card class="question-body">
+      <question-body
+        ref="questionBody"
+        :pagination="pagination"
+        :question-list="questionList"
+        :step-obj="stepObj"
+        :type-obj="typeObj"
+        :diff-obj="diffObj"
+        :status-obj="statusObj"
+        @handleSizeChange="handleSizeChange"
+        @handleCurrentChange="handleCurrentChange"
+      />
     </el-card>
   </div>
 </template>
 
 <script>
 import QuestionHeader from './QuestionHeader'
+import QuestionBody from './QuestionBody'
 
 import { getSubjectList } from 'network/subject'
 import { getBusinessList } from 'network/business'
+import { getQuestionList } from 'network/question'
 
 export default {
   name: 'HomeQuestion',
@@ -38,8 +54,15 @@ export default {
         page: '', //	否	string	页码 默认为1
         limit: '' //	否	string	页尺寸 默认为10
       },
+      // 分页器
+      pagination: {
+        total: 10,
+        pageSize: 5,
+        currentPage: 1
+      },
       subjectList: [],
       businessList: [],
+      questionList: [],
       stepObj: {
         1: '初级',
         2: '中级',
@@ -64,27 +87,59 @@ export default {
   created () {
     this.getSubjectList()
     this.getBusinessList()
+    this.getQuestionList()
   },
   methods: {
     /**
      * 	网络请求相关方法
      */
     async getSubjectList () {
-      const res = await getSubjectList({limit: Infinity})
+      const res = await getSubjectList({ limit: Infinity })
       const data = res.data.data.items
-      this.subjectList = data.map((item => ({rid: item.rid, name: item.name})))
+      this.subjectList = data.map((item => ({ rid: item.rid, name: item.name })))
     },
     async getBusinessList () {
-      const res = await getBusinessList({limit: Infinity})
+      const res = await getBusinessList({ limit: Infinity })
       const data = res.data.data.items
-      this.businessList = data.map((item => ({eid: item.eid, name: item.name})))
+      this.businessList = data.map((item => ({ eid: item.eid, name: item.name })))
+    },
+    async getQuestionList () {
+      // 传参
+      let params = {
+        ...this.searchForm,
+        page: this.pagination.currentPage,
+        limit: this.pagination.pageSize
+      }
+      const res = await getQuestionList(params)
+      const data = res.data.data.items
+      this.pagination.total = res.data.data.pagination.total
+      this.questionList = data
+    },
+    /**
+     * 	事件相关方法
+     */
+    // 改变页容量
+    handleSizeChange (size) {
+      this.pagination.pageSize = size
+      // 页容量改变时，页码都变成1
+      this.pagination.currentPage = 1
+      this.getQuestionList()
+    },
+    // 点击页码
+    handleCurrentChange (val) {
+      this.pagination.currentPage = val
+      this.getQuestionList()
     },
   },
   components: {
-    QuestionHeader
+    QuestionHeader,
+    QuestionBody
   }
 }
 </script>
 
-<style scoped>
+<style>
+.question-body {
+  margin-top: 20px;
+}
 </style>
