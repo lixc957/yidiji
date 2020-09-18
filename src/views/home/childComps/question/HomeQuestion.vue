@@ -30,7 +30,15 @@
       />
     </el-card>
 
-    <question-add ref="questionAdd" :mode="mode" />
+    <question-add 
+    ref="questionAdd" 
+    :mode="mode"
+    :subject-list="subjectList"
+    :step-obj="stepObj"
+    :business-list="businessList"
+    :options="options"
+    @isDialogVisible="isDialogVisible"
+    />
   </div>
 </template>
 
@@ -42,12 +50,14 @@ import QuestionAdd from './QuestionAdd'
 import { getSubjectList } from 'network/subject'
 import { getBusinessList } from 'network/business'
 import { getQuestionList } from 'network/question'
+import { regionData } from "element-china-area-data"
 
 export default {
   name: 'HomeQuestion',
   data () {
     return {
       mode: 'add',
+      options: regionData,
       searchForm: {
         subject: '', //	否	int	学科id
         step: '', //	否	string	题目阶段:1(初级),2(中级),3(高级)
@@ -153,6 +163,27 @@ export default {
       this.pagination.currentPage = val
       this.getQuestionList()
     },
+    // 模态框改变
+    isDialogVisible () {
+      // 字段还原
+      this.addQuestionForm = {
+        subject: '', 
+        step: '', 
+        enterprise: '', 
+        city: '', 
+        type: '', 
+        difficulty: '', 
+        title: '', 
+        single_select_answer: '', 
+        multiple_select_answer: '', 
+        short_answer: '', 
+        select_options: '', 
+        video: '', 
+        answer_analyze: '', 
+        remark: '' 
+      }
+      this.$refs.questionAdd.resetFields('addQuestionForm')
+    },
     // 点击搜索
     searchQuestion () {
       this.pagination.currentPage = 1
@@ -176,8 +207,9 @@ export default {
 }
 </script>
 
-<style>
+<style scpoed>
 .question-body {
   margin-top: 20px;
 }
+
 </style>

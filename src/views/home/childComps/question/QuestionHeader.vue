@@ -118,7 +118,7 @@
         <el-form-item label-width="10px">
           <el-button type="primary" @click="search">搜索</el-button>
           <el-button @click="resetForm">清除</el-button>
-          <el-button type="primary" @click="add">+ 新增用户</el-button>
+          <el-button type="primary" @click="add">+ 新增试题</el-button>
         </el-form-item>
       </el-col>
     </el-row>
