@@ -91,7 +91,7 @@
         <el-form-item label="试题标题" prop="title"  class="question-item-title">
           <quill-editor 
           v-model="addQuestionForm.title"
-          @change="onEditorChange($event)"
+          @change="onEditorChange('title')"
           class="question-input-title">
           </quill-editor>
         </el-form-item>
@@ -101,14 +101,15 @@
         :prop="propObj[addQuestionForm.type]" 
         class="question-item">
           <question-title-all
-          :add-question-form="addQuestionForm" />
+          :add-question-form="addQuestionForm"
+          @inputChange="onEditorChange" />
         </el-form-item>
         <hr>
 
         <el-form-item label="答案解析" prop="answer_analyze"  class="question-item-title">
           <quill-editor 
           v-model="addQuestionForm.answer_analyze"
-          @change="onEditorChange($event)"
+          @change="onEditorChange('answer_analyze')"
           class="question-input-title">
           </quill-editor>
         </el-form-item>
@@ -250,8 +251,8 @@ export default {
     handleChange(val) {
       console.log(val)
     },
-    onEditorChange(e) {
-      console.log(e)
+    onEditorChange(msg) {
+      this.$refs.addQuestionForm.validateField([msg])
     }
   },
   mixins: [homeMainAddMixin]

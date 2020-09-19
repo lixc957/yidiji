@@ -41,6 +41,7 @@
     :type-obj="typeObj"
     :diff-obj="diffObj"
     @isDialogVisible="isDialogVisible"
+    @add="addQuestion"
     />
   </div>
 </template>
@@ -49,11 +50,14 @@
 import QuestionHeader from './QuestionHeader'
 import QuestionBody from './QuestionBody'
 import QuestionAdd from './QuestionAdd'
+import { regionData } from "element-china-area-data"
 
 import { getSubjectList } from 'network/subject'
 import { getBusinessList } from 'network/business'
-import { getQuestionList } from 'network/question'
-import { regionData } from "element-china-area-data"
+import { 
+  getQuestionList,
+  addQuestion } from 'network/question'
+import { tips } from 'common/utils'
 
 export default {
   name: 'HomeQuestion',
@@ -172,6 +176,17 @@ export default {
       this.pagination.total = res.data.data.pagination.total
       this.questionList = data
     },
+    async addQuestion(data) {
+      try {
+        this.mode = 'add'
+        const res = await addQuestion(data)
+        tips('新增成功', 'success')
+        this.$refs.questionAdd.dialogVisible = false
+        this.searchQuestion()
+      } catch (error) {
+        console.warn(error)
+      }
+    },
     /**
      * 	事件相关方法
      */
@@ -190,23 +205,44 @@ export default {
     // 模态框改变
     isDialogVisible () {
       // 字段还原
-      // this.addQuestionForm = {
-      //   subject: '', 
-      //   step: '', 
-      //   enterprise: '', 
-      //   city: [], 
-      //   type: 1, 
-      //   difficulty: 1, 
-      //   title: '', 
-      //   single_select_answer: '', 
-      //   multiple_select_answer: [], 
-      //   short_answer: '', 
-      //   select_options: [], 
-      //   video: '', 
-      //   answer_analyze: '', 
-      //   remark: '' 
-      // }
-      // this.$refs.questionAdd.resetFields('addQuestionForm')
+      this.addQuestionForm = {
+        subject: '', 
+        step: '', 
+        enterprise: '', 
+        city: [], 
+        type: 1, 
+        difficulty: 1, 
+        title: '', 
+        single_select_answer: '', 
+        multiple_select_answer: [], 
+        short_answer: '', 
+        select_options: [
+          {
+            label: 'A',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'B',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'C',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'D',
+            text: '',
+            image: ''
+          }
+        ], 
+        video: '', 
+        answer_analyze: '', 
+        remark: '' 
+      }
+      this.$refs.questionAdd.resetFields('addQuestionForm')
     },
     // 点击搜索
     searchQuestion () {

@@ -9,7 +9,8 @@
       >
         <el-radio 
         v-model="addQuestionForm.single_select_answer" 
-        :label="item.label">{{item.label}}</el-radio>
+        :label="item.label"
+        @change="inputChange('single_select_answer')">{{item.label}}</el-radio>
       
         <el-input v-model="item.text"></el-input>
         <up-load 
@@ -30,6 +31,7 @@
         <el-checkbox
         v-model="addQuestionForm.multiple_select_answer"
         :label="item.label"
+        @change="inputChange('multiple_select_answer')"
         >{{ item.label }}</el-checkbox>
          
         <el-input v-model="item.text"></el-input>
@@ -67,7 +69,12 @@ export default {
         return {}
       }
     }
-  }
+  },
+  methods: {
+    inputChange(res) {
+      this.$emit('inputChange', res)
+    }
+  },
 }
 </script>
 
