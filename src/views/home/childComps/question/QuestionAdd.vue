@@ -96,7 +96,10 @@
           </quill-editor>
         </el-form-item>
 
-        <el-form-item :label="typeObj[addQuestionForm.type]" class="question-item">
+        <el-form-item 
+        :label="typeObj[addQuestionForm.type]" 
+        :prop="propObj[addQuestionForm.type]" 
+        class="question-item">
           <question-title-all
           :add-question-form="addQuestionForm" />
         </el-form-item>
@@ -219,7 +222,27 @@ export default {
         ],
         title: [
           { required: true, message: '请输入试题标题', trigger: 'change' }
+        ],
+        single_select_answer: [
+          { required: true, message: '请输入答案', trigger: 'change' }
+        ],
+        multiple_select_answer: [
+          { required: true, message: '请输入答案', trigger: 'change' }
+        ],
+        short_answer: [
+          { required: true, message: '请输入答案', trigger: 'change' }
+        ],
+        answer_analyze: [
+          { required: true, message: '请输入答案解析', trigger: 'change' }
+        ],
+        remark: [
+          { required: true, message: '请输入试题备注', trigger: 'change' }
         ]
+      },
+      propObj: {
+        1: 'single_select_answer',
+        2: 'multiple_select_answer',
+        3: 'short_answer'
       }
     }
   },
