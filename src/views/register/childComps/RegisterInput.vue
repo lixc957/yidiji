@@ -11,9 +11,8 @@
         v-model="registerForm.avatar"
         name="image"
         actionUrl="/uploads"
-        :imageUrl="registerForm.avatar"
+        :image-url="registerForm.avatar"
         @handleAvatarSuccess="avatarSuccess"
-        :baseUrl="baseUrl"
         ref="registerUpload"
       />
     </el-form-item>

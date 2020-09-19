@@ -100,6 +100,23 @@
           <question-title-all
           :add-question-form="addQuestionForm" />
         </el-form-item>
+        <hr>
+
+        <el-form-item label="答案解析" prop="answer_analyze"  class="question-item-title">
+          <quill-editor 
+          v-model="addQuestionForm.answer_analyze"
+          @change="onEditorChange($event)"
+          class="question-input-title">
+          </quill-editor>
+        </el-form-item>
+        <hr>
+
+        <el-form-item label="试题备注" prop="remark"  class="question-item-remark">
+          <el-input    
+          type="textarea"
+          v-model="addQuestionForm.remark"
+          ></el-input>
+        </el-form-item>
 
       </el-form>
     </div>
@@ -230,6 +247,9 @@ export default {
   .question-main {
     width: 835px;
     margin: 0 auto;
+    hr {
+      margin-top: 80px;
+    }
     .item-select {
       width: 364px;
     }
@@ -250,6 +270,16 @@ export default {
       .question-input-title {   
         margin-top: 100px;
       }  
+    }
+    .question-item-remark {
+      margin-bottom: 80px;
+      .el-form-item__label {
+        margin-top: 35px;
+        text-align: left;
+      }
+      .el-form-item__content {
+        margin-top: 80px;
+      }
     }
     
   }

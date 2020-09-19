@@ -7,8 +7,18 @@
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
   >
-    <img v-if="imageUrl" :src="baseUrl + '/' + imageUrl" />
-    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    <div v-if="fileType === 'video'">
+      <video 
+      v-if="imageUrl" 
+      :src="baseUrl + '/' + imageUrl"
+      controls
+      autoplay></video>
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>    
+    </div>
+    <div v-else>
+      <img v-if="imageUrl" :src="baseUrl + '/' + imageUrl" />
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </div>
   </el-upload>
 </template>
 
@@ -16,21 +26,31 @@
 export default {
   name: 'UpLoad',
   props: {
-    baseUrl: {
-      type: String,
-      default: ''
-    },
+    // 上传图片参数
     name: {
       type: String,
       default: ''
     },
+    // 图片src地址
     imageUrl: {
       type: String,
       default: ''
     },
+    // 上传图片地址
     actionUrl: {
       type: String,
       default: ''
+    },
+    // 上传文件类型
+    fileType: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
+      // 公共地址
+      baseUrl: process.env.VUE_APP_BASEURL
     }
   },
   
@@ -41,16 +61,30 @@ export default {
       this.$emit('handleAvatarSuccess')
     },
     beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      // 如果上传的是视频
+      if (this.fileType === 'video') {
+        const isMP4 = file.type === 'video/mp4'
+        const isLt4M = file.size / 1024 / 1024 < 4
 
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG or PNG 格式!')
+        if (!isMP4) {
+          this.$message.error('上传视频只能是 MP4 格式!')
+        }
+        if (!isLt4M) {
+          this.$message.error('上传视频大小不能超过 4MB!')
+        }
+        return isMP4 && isLt4M
+      } else {
+        const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
+        const isLt2M = file.size / 1024 / 1024 < 2
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG or PNG 格式!')
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!')
+        }
+        return isJPG && isLt2M
       }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
-      }
-      return isJPG && isLt2M
     }
   }
 }

@@ -14,13 +14,14 @@
         <el-input v-model="item.text"></el-input>
         <up-load 
         v-model="item.image" 
-        :imgUrl="item.image"
+        :imageUrl="item.image"
+        actionUrl="/question/upload"
         name="file" />
       </div>
     </div>
 
     <!-- 多选 -->
-    <div v-if="addQuestionForm.type === 2">
+    <div v-else-if="addQuestionForm.type === 2">
       <div
         class="item"
         v-for="(item, index) in addQuestionForm.select_options"
@@ -34,19 +35,19 @@
         <el-input v-model="item.text"></el-input>
         <up-load 
         v-model="item.image" 
-        :imgUrl="item.image"
+        :imageUrl="item.image"
+        actionUrl="/question/upload"
         name="file" />
       </div>
     </div>
     
     <!-- 简答 -->
-    <div v-else>
-      <el-input    
-        type="textarea"
-        :rows="5"
-        v-model="addQuestionForm.short_answer"
-      ></el-input>
-    </div>
+    <el-input    
+      type="textarea"
+      v-else
+      :rows="5"
+      v-model="addQuestionForm.short_answer"
+    ></el-input>
     
   </div>
 </template>
