@@ -86,7 +86,7 @@
             >{{value}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <hr>
+        <hr style="margin-top:30px">
 
         <el-form-item label="试题标题" prop="title"  class="question-item-title">
           <quill-editor 
@@ -282,6 +282,7 @@ export default {
       }
     }
     .question-item-title {
+      margin-bottom: 80px;
       .el-form-item__label {
         margin-top: 35px;
         text-align: left;
@@ -301,7 +302,7 @@ export default {
         text-align: left;
       }
       .el-form-item__content {
-        margin-top: 80px;
+        margin-top: 40px;
       }
     }
     
