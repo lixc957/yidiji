@@ -84,14 +84,14 @@ export default {
         subject: '', //	是	int	学科id标识
         step: '', //	是	int	阶段1、初级 2、中级 3、高级
         enterprise: '', //	是	int	企业id标识
-        city: '', //	是	array	[省、市、区县]
+        city: [], //	是	array	[省、市、区县]
         type: 1, //	是	string	题型 1单选 、2多选 、3简答
         difficulty: 1, //	是	int	题目难度 1简单 、2一般 、3困难
         title: '', //	是	string	标题
         single_select_answer: '', //	是	string	单选题答案
-        multiple_select_answer: '', //	是	array	多选题答案
+        multiple_select_answer: [], //	是	array	多选题答案
         short_answer: '', //	是	string	简答题答案
-        select_options: '', //	是	array	选项，介绍，图片介绍
+        select_options: [], //	是	array	选项，介绍，图片介绍
         video: '', //	否	string	解析视频地址
         answer_analyze: '', //	是	string	答案解析
         remark: '' //	是	string	答案备注
@@ -173,14 +173,14 @@ export default {
         subject: '', 
         step: '', 
         enterprise: '', 
-        city: '', 
+        city: [], 
         type: 1, 
         difficulty: 1, 
         title: '', 
         single_select_answer: '', 
-        multiple_select_answer: '', 
+        multiple_select_answer: [], 
         short_answer: '', 
-        select_options: '', 
+        select_options: [], 
         video: '', 
         answer_analyze: '', 
         remark: '' 

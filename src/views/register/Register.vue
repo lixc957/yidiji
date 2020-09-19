@@ -65,7 +65,7 @@ export default {
     async register (data) {
       try {
         await register(data)
-        tips('登录成功', 'success')
+        tips('注册成功', 'success')
         this.dialogVisible = false
       } catch (error) {
         console.warn(error)

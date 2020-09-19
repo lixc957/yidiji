@@ -7,8 +7,10 @@
     class="register-form"
   >
     <el-form-item label="头像" prop="avatar">
-      <register-upload
-        v-model.lazy.trim="registerForm.avatar"
+      <up-load
+        v-model="registerForm.avatar"
+        name="image"
+        :imageUrl="registerForm.avatar"
         @handleAvatarSuccess="avatarSuccess"
         :baseUrl="baseUrl"
         ref="registerUpload"
@@ -62,7 +64,7 @@
 </template>
 
 <script>
-import RegisterUpload from './RegisterUpload'
+import UpLoad from 'components/content/upload/UpLoad'
 
 import { regFromMixin } from 'common/mixin'
 
@@ -119,7 +121,7 @@ export default {
     }
   },
   components: {
-    RegisterUpload
+    UpLoad
   },
   methods: {
     // 获取用户验证码
@@ -148,7 +150,6 @@ export default {
 
     // 头像上传
     avatarSuccess (res) {
-      this.registerForm.avatar = res
       // 手动触发一次校验
       this.$refs.registerForm.validateField(['avatar'])
     },
@@ -161,7 +162,7 @@ export default {
     // 清空表单
     resetFields () {
       this.$refs.registerForm.resetFields()
-      this.$refs.registerUpload.imageUrl = ''
+      this.registerForm.avatar = ''
       this.registerForm.rcode = ''
     },
 

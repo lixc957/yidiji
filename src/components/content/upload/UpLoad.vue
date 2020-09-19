@@ -2,7 +2,7 @@
   <el-upload
     class="avatar-uploader"
     :action="baseUrl + '/uploads'"
-    name="image"
+    :name="name"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
@@ -14,23 +14,27 @@
 
 <script>
 export default {
-  name: 'RegisterUpload',
+  name: 'UpLoad',
   props: {
     baseUrl: {
       type: String,
       default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    imageUrl: {
+      type: String,
+      default: ''
     }
   },
-  data () {
-    return {
-      imageUrl: ''
-    }
-  },
+  
   methods: {
     handleAvatarSuccess (res) {
       const file_path = res.data.file_path
-      this.imageUrl = file_path
-      this.$emit('handleAvatarSuccess', file_path)
+      this.$emit('input', file_path)
+      this.$emit('handleAvatarSuccess')
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
