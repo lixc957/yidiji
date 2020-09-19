@@ -176,8 +176,13 @@ export default {
       }
       const res = await getQuestionList(params)
       const data = res.data.data.items
+      data.forEach(item => {
+        item.city = item.city.split(',')
+        item.multiple_select_answer = item.multiple_select_answer.split(',')
+      })
       this.pagination.total = res.data.data.pagination.total
       this.questionList = data
+      console.log(this.questionList);
     },
     // 点击启用禁用文本
     async setStatus (id) {
