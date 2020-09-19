@@ -34,9 +34,12 @@
     ref="questionAdd" 
     :mode="mode"
     :subject-list="subjectList"
+    :add-question-form="addQuestionForm"
     :step-obj="stepObj"
     :business-list="businessList"
     :options="options"
+    :type-obj="typeObj"
+    :diff-obj="diffObj"
     @isDialogVisible="isDialogVisible"
     />
   </div>
@@ -82,8 +85,8 @@ export default {
         step: '', //	是	int	阶段1、初级 2、中级 3、高级
         enterprise: '', //	是	int	企业id标识
         city: '', //	是	array	[省、市、区县]
-        type: '', //	是	string	题型 1单选 、2多选 、3简答
-        difficulty: '', //	是	int	题目难度 1简单 、2一般 、3困难
+        type: 1, //	是	string	题型 1单选 、2多选 、3简答
+        difficulty: 1, //	是	int	题目难度 1简单 、2一般 、3困难
         title: '', //	是	string	标题
         single_select_answer: '', //	是	string	单选题答案
         multiple_select_answer: '', //	是	array	多选题答案

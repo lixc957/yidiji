@@ -67,6 +67,35 @@
           ></el-cascader>
         </el-form-item>
 
+        <el-form-item label="题型" prop="type">
+          <el-radio-group v-model="addQuestionForm.type">
+            <el-radio 
+            v-for="(value, key, index) in typeObj" 
+            :key="index" 
+            :label="+key"
+            >{{value}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item label="难度" prop="difficulty">
+          <el-radio-group v-model="addQuestionForm.difficulty">
+            <el-radio 
+            v-for="(value, key, index) in diffObj" 
+            :key="index" 
+            :label="+key"
+            >{{value}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <hr>
+
+        <el-form-item label="试题标题" prop="title"  class="question-item-title">
+          <quill-editor 
+          v-model="addQuestionForm.title"
+          @change="onEditorChange($event)"
+          class="question-input-title">
+          </quill-editor>
+        </el-form-item>
+
       </el-form>
     </div>
 
@@ -83,9 +112,16 @@
 
 <script>
 import { homeMainAddMixin } from 'common/mixin'
+import { quillEditor } from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 export default {
   name: 'QuestionAdd',
+  components: {
+    quillEditor
+  },
   props: {
     mode: {
       type: String,
@@ -120,6 +156,18 @@ export default {
       default() {
         return []
       }
+    },
+    typeObj: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    diffObj: {
+      type: Object,
+      default () {
+        return {}
+      }
     }
   },
   data () {
@@ -144,6 +192,9 @@ export default {
   methods: {
     handleChange(val) {
       console.log(val)
+    },
+    onEditorChange(e) {
+      console.log(e)
     }
   },
   mixins: [homeMainAddMixin]
@@ -165,6 +216,20 @@ export default {
     .item-select {
       width: 364px;
     }
+    .question-item-title {
+      .el-form-item__label {
+        margin-top: 35px;
+        text-align: left;
+      }
+      .el-form-item__content {
+        margin-left: 0 !important;
+        line-height: 0;
+      }    
+      .question-input-title {   
+        margin-top: 100px;
+      }  
+    }
+    
   }
   .title {
     width: 100%;

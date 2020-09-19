@@ -6,9 +6,6 @@ import 'nprogress/nprogress.css'
 import Login from 'views/login/Login'
 import Error from 'components/common/Error'
 
-import store from '@/store'
-import { removeLocal, tips } from 'common/utils'
-
 const Home = () => import(/* webpackChunkName: 'home' */ 'views/home/Home')
 const HomeData = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/data/HomeData')
 const HomeUser = () => import(/* webpackChunkName: 'home' */ 'views/home/childComps/user/HomeUser')
@@ -100,13 +97,8 @@ const router = new VueRouter({
 
 // 配置路由进度条
 router.beforeEach((to, from, next) => {
-  Nprogress.start()
-  if (!to.meta.roles.includes(store.state.role)) {
-    removeLocal('token')
-    next('/login')
-  } else {
-    next() //允许通过  next()  不允许通过 next('path')
-  }
+  Nprogress.start() 
+  next() //允许通过  next()  不允许通过 next('path')
 })
 
 router.afterEach((to, from) => {
