@@ -12,7 +12,7 @@
         ref="addQuestionForm"
         class="add-question-form"
       >
-        <el-form-item class="input-item" label="学科" prop="subject">
+        <el-form-item label="学科" prop="subject" class="question-item">
           <el-select
             v-model.trim.lazy="addQuestionForm.subject"
             placeholder="请选择学科"
@@ -27,7 +27,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="阶段" prop="step">
+        <el-form-item label="阶段" prop="step" class="question-item">
           <el-select
             v-model.trim.lazy="addQuestionForm.step"
             placeholder="请选择阶段"
@@ -42,7 +42,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="企业" prop="enterprise">
+        <el-form-item label="企业" prop="enterprise" class="question-item">
           <el-select
             v-model.trim.lazy="addQuestionForm.enterprise"
             placeholder="请选择企业"
@@ -56,7 +56,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="城市" prop="city">
+        <el-form-item label="城市" prop="city" class="question-item">
           <el-cascader
           v-model.trim.lazy="addQuestionForm.city"
           placeholder="请选择"
@@ -67,7 +67,7 @@
           ></el-cascader>
         </el-form-item>
 
-        <el-form-item label="题型" prop="type">
+        <el-form-item label="题型" prop="type" class="question-item">
           <el-radio-group v-model="addQuestionForm.type">
             <el-radio 
             v-for="(value, key, index) in typeObj" 
@@ -77,7 +77,7 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="难度" prop="difficulty">
+        <el-form-item label="难度" prop="difficulty" class="question-item">
           <el-radio-group v-model="addQuestionForm.difficulty">
             <el-radio 
             v-for="(value, key, index) in diffObj" 
@@ -96,6 +96,11 @@
           </quill-editor>
         </el-form-item>
 
+        <el-form-item :label="typeObj[addQuestionForm.type]" class="question-item">
+          <question-title-all
+          :add-question-form="addQuestionForm" />
+        </el-form-item>
+
       </el-form>
     </div>
 
@@ -111,6 +116,8 @@
 </template>
 
 <script>
+import QuestionTitleAll from './QuestionTitleAll'
+
 import { homeMainAddMixin } from 'common/mixin'
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
@@ -120,7 +127,8 @@ import 'quill/dist/quill.bubble.css'
 export default {
   name: 'QuestionAdd',
   components: {
-    quillEditor
+    quillEditor,
+    QuestionTitleAll
   },
   props: {
     mode: {
@@ -185,6 +193,15 @@ export default {
         ],
         city: [
           { required: true, message: '请选择城市', trigger: 'change' }
+        ],
+        type: [
+          { required: true, message: '请选择题型', trigger: 'change' }
+        ],
+        difficulty: [
+          { required: true, message: '请选择难度', trigger: 'change' }
+        ],
+        title: [
+          { required: true, message: '请输入试题标题', trigger: 'change' }
         ]
       }
     }
@@ -215,6 +232,11 @@ export default {
     margin: 0 auto;
     .item-select {
       width: 364px;
+    }
+    .question-item {
+      .el-form-item__label {
+        text-align: left;
+      }
     }
     .question-item-title {
       .el-form-item__label {

@@ -91,7 +91,28 @@ export default {
         single_select_answer: '', //	是	string	单选题答案
         multiple_select_answer: [], //	是	array	多选题答案
         short_answer: '', //	是	string	简答题答案
-        select_options: [], //	是	array	选项，介绍，图片介绍
+        select_options: [
+          {
+            label: 'A',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'B',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'C',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'D',
+            text: '',
+            image: ''
+          }
+        ], //是	array	选项，介绍，图片介绍
         video: '', //	否	string	解析视频地址
         answer_analyze: '', //	是	string	答案解析
         remark: '' //	是	string	答案备注
@@ -169,23 +190,23 @@ export default {
     // 模态框改变
     isDialogVisible () {
       // 字段还原
-      this.addQuestionForm = {
-        subject: '', 
-        step: '', 
-        enterprise: '', 
-        city: [], 
-        type: 1, 
-        difficulty: 1, 
-        title: '', 
-        single_select_answer: '', 
-        multiple_select_answer: [], 
-        short_answer: '', 
-        select_options: [], 
-        video: '', 
-        answer_analyze: '', 
-        remark: '' 
-      }
-      this.$refs.questionAdd.resetFields('addQuestionForm')
+      // this.addQuestionForm = {
+      //   subject: '', 
+      //   step: '', 
+      //   enterprise: '', 
+      //   city: [], 
+      //   type: 1, 
+      //   difficulty: 1, 
+      //   title: '', 
+      //   single_select_answer: '', 
+      //   multiple_select_answer: [], 
+      //   short_answer: '', 
+      //   select_options: [], 
+      //   video: '', 
+      //   answer_analyze: '', 
+      //   remark: '' 
+      // }
+      // this.$refs.questionAdd.resetFields('addQuestionForm')
     },
     // 点击搜索
     searchQuestion () {

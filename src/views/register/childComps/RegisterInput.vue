@@ -10,6 +10,7 @@
       <up-load
         v-model="registerForm.avatar"
         name="image"
+        actionUrl="/uploads"
         :imageUrl="registerForm.avatar"
         @handleAvatarSuccess="avatarSuccess"
         :baseUrl="baseUrl"

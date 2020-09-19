@@ -1,7 +1,7 @@
 <template>
   <el-upload
     class="avatar-uploader"
-    :action="baseUrl + '/uploads'"
+    :action="baseUrl + actionUrl"
     :name="name"
     :show-file-list="false"
     :on-success="handleAvatarSuccess"
@@ -27,12 +27,16 @@ export default {
     imageUrl: {
       type: String,
       default: ''
+    },
+    actionUrl: {
+      type: String,
+      default: ''
     }
   },
   
   methods: {
     handleAvatarSuccess (res) {
-      const file_path = res.data.file_path
+      const file_path = res?.data?.file_path || res?.data?.url
       this.$emit('input', file_path)
       this.$emit('handleAvatarSuccess')
     },
