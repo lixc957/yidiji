@@ -27,6 +27,8 @@
         :status-obj="statusObj"
         @handleSizeChange="handleSizeChange"
         @handleCurrentChange="handleCurrentChange"
+        @setStatus="setStatus"
+        @editDialogVisible="editDialogVisible"
       />
     </el-card>
 
@@ -56,7 +58,8 @@ import { getSubjectList } from 'network/subject'
 import { getBusinessList } from 'network/business'
 import { 
   getQuestionList,
-  addQuestion } from 'network/question'
+  addQuestion,
+  setQuestionStatus } from 'network/question'
 import { tips } from 'common/utils'
 
 export default {
@@ -176,6 +179,12 @@ export default {
       this.pagination.total = res.data.data.pagination.total
       this.questionList = data
     },
+    // 点击启用禁用文本
+    async setStatus (id) {
+      await setQuestionStatus({ id })
+      tips('修改状态成功', 'success')
+      this.getQuestionList()
+    },
     async addQuestion(data) {
       try {
         this.mode = 'add'
@@ -243,6 +252,12 @@ export default {
         remark: '' 
       }
       this.$refs.questionAdd.resetFields('addQuestionForm')
+    },
+    // 点击编辑打开模态框
+    editDialogVisible (data) {
+      this.mode = 'edit'
+      this.$refs.questionAdd.dialogVisible = true
+      this.addQuestionForm = JSON.parse(JSON.stringify(data))
     },
     // 点击搜索
     searchQuestion () {

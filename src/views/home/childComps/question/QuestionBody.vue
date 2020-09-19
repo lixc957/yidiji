@@ -25,17 +25,17 @@
       <el-table-column label="创建者" prop="username"></el-table-column>
       <el-table-column label="状态" width="80px">
         <template v-slot="scope">
-          <div>{{ statusObj[scope.row.status] }}</div>
+          <div :class="{ isDisabled: scope.row.status === 0 }">{{ statusObj[scope.row.status] }}</div>
         </template>
       </el-table-column>
       <el-table-column label="访问量" prop="reads"></el-table-column>
       <el-table-column label="操作">
         <template v-slot="scope">
-          <el-button type="text">编辑</el-button>
-          <el-button type="text">
+          <el-button type="text" @click="edit(scope.row)">编辑</el-button>
+          <el-button type="text" @click="setStatus(scope.row.id)">
             {{ scope.row.status === 0 ? '启用' : '禁用' }}
           </el-button>
-          <el-button type="text" v-if="$store.state.role.includes('管理员')">删除</el-button>
+          <el-button type="text" v-if="$store.state.role.includes('管理员')" @click="del(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
