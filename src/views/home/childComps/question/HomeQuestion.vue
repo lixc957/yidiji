@@ -29,6 +29,7 @@
         @handleCurrentChange="handleCurrentChange"
         @setStatus="setStatus"
         @editDialogVisible="editDialogVisible"
+        @del="delQuestion"
       />
     </el-card>
 
@@ -61,7 +62,8 @@ import {
   getQuestionList,
   addQuestion,
   setQuestionStatus,
-  editQuestion } from 'network/question'
+  editQuestion,
+  delQuestion } from 'network/question'
 import { tips } from 'common/utils'
 
 export default {
@@ -212,6 +214,11 @@ export default {
       } catch (error) {
         console.warn(error)
       }
+    },
+    async delQuestion (id) {
+      await delQuestion({ id })
+      tips('删除成功', 'success')
+      this.getQuestionList()
     },
     /**
      * 	事件相关方法
