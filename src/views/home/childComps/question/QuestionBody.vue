@@ -35,7 +35,7 @@
           <el-button type="text">
             {{ scope.row.status === 0 ? '启用' : '禁用' }}
           </el-button>
-          <el-button type="text">删除</el-button>
+          <el-button type="text" v-if="$store.state.role.includes('管理员')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
