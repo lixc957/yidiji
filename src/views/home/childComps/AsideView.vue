@@ -50,11 +50,7 @@ export default {
         return []
       }
     }
-  },
-  created() {
-    console.log(this.$router)
-    console.log(this.routerOpations)
-  },
+  }
 }
 </script>
 

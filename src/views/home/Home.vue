@@ -1,5 +1,5 @@
 <template>
-  <el-container class="home">
+  <el-container class="home" v-if="bol">
     <el-header class="header">
       <header-view 
       :user-info="userInfo" 
@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       userInfo: {},
-      routerOpations: []
+      routerOpations: [],
+      bol: false
     }
   },
   created() {
@@ -51,14 +52,15 @@ export default {
      */
     async getUserInfo() {
       const res = await getUserInfo()
-      if (!res.data.data.status) {
+      this.userInfo = res.data.data
+      this.$store.state.userInfo = this.userInfo
+      this.$store.state.role = this.userInfo.role
+      this.bol = true
+      if (!this.userInfo.status) {
         tips('您帐号已禁用，请联系管理员!', 'error')
         removeLocal('token')
         return this.$router.replace('/login')
       } else tips('登录成功', 'success')
-      this.userInfo = res.data.data
-      this.$store.state.userInfo = this.userInfo
-      this.$store.state.role = this.userInfo.role
     },
     async userExit() {
        await userExit()

@@ -26,7 +26,7 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" v-if="$store.state.role !== '学生'">
         <template v-slot="scope">
           <el-button type="text" @click="edit(scope.row)"
             >编辑</el-button
@@ -34,7 +34,8 @@
           <el-button type="text" @click="setStatus(scope.row.id)">
             {{ scope.row.status === 0 ? '启用' : '禁用' }}
           </el-button>
-          <el-button type="text" @click="del(scope.row.id)"
+          <el-button type="text" 
+          @click="del(scope.row.id)" v-if="$store.state.role.includes('管理员')"
             >删除</el-button
           >
         </template>
@@ -88,6 +89,10 @@ export default {
         return {}
       }
     }
+  },
+  mounted() {
+    
+    console.log(this.$store.state.role);
   },
   mixins: [homeMainBodyMixin]
 }
