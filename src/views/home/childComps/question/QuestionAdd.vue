@@ -62,7 +62,6 @@
           placeholder="请选择"
           :props="{value:'label'}"
           :options="options"
-          @change="handleChange"
           class="item-select"
           ></el-cascader>
         </el-form-item>
@@ -248,9 +247,9 @@ export default {
     }
   },
   methods: {
-    handleChange(val) {
-      console.log(val)
-    },
+    // handleChange(val) {
+    //   console.log(val)
+    // },
     onEditorChange(msg) {
       this.$refs.addQuestionForm.validateField([msg])
     }

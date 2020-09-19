@@ -44,6 +44,7 @@
     :diff-obj="diffObj"
     @isDialogVisible="isDialogVisible"
     @add="addQuestion"
+    @edit="editQuestion"
     />
   </div>
 </template>
@@ -59,7 +60,8 @@ import { getBusinessList } from 'network/business'
 import { 
   getQuestionList,
   addQuestion,
-  setQuestionStatus } from 'network/question'
+  setQuestionStatus,
+  editQuestion } from 'network/question'
 import { tips } from 'common/utils'
 
 export default {
@@ -176,13 +178,13 @@ export default {
       }
       const res = await getQuestionList(params)
       const data = res.data.data.items
+      // 城市过滤成数组
       data.forEach(item => {
         item.city = item.city.split(',')
         item.multiple_select_answer = item.multiple_select_answer.split(',')
       })
       this.pagination.total = res.data.data.pagination.total
       this.questionList = data
-      console.log(this.questionList);
     },
     // 点击启用禁用文本
     async setStatus (id) {
@@ -197,6 +199,16 @@ export default {
         tips('新增成功', 'success')
         this.$refs.questionAdd.dialogVisible = false
         this.searchQuestion()
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    async editQuestion (data) {
+      try {
+        await editQuestion(data)
+        tips('编辑成功', 'success')
+        this.$refs.questionAdd.dialogVisible = false
+        this.getQuestionList()
       } catch (error) {
         console.warn(error)
       }
