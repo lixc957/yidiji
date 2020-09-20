@@ -44,10 +44,9 @@ export default {
     this.routerOpations = this.$router.options.routes[2].children
   },
   beforeRouteEnter (to, from, next) {
-    next(vm => {
-      // 判断有无token
-      vm.getToken()
-    })
+    if (!getLocal('token')) {
+      next('/login')
+    } else next()  
   },
   methods: {
     /**
