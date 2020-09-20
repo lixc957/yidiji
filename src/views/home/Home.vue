@@ -73,11 +73,6 @@ export default {
     /**
      * 	事件相关方法
      */
-     getToken() {
-       if (!getLocal('token')) {
-         return this.$router.replace('/login')
-       }
-     },
      logoClick() {
        this.$refs.asideBar.isCollapse = !this.$refs.asideBar.isCollapse
      }
