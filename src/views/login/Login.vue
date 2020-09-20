@@ -27,8 +27,10 @@ export default {
     LoginTitle,
     Register
   },
-  created () {
-    this.getToken()
+  beforeRouteEnter (to, from, next) {   
+    if (getLocal('token')) {
+      next('/home')
+    } else next()   
   },
   methods: {
     /**

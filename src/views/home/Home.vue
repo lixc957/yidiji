@@ -1,5 +1,5 @@
 <template>
-  <el-container class="home" v-if="bol">
+  <el-container class="home" v-if="userInfo.username">
     <el-header class="header">
       <header-view 
       :user-info="userInfo" 
@@ -35,16 +35,19 @@ export default {
   data() {
     return {
       userInfo: {},
-      routerOpations: [],
-      bol: false
+      routerOpations: []
     }
   },
-  created() {
-    // 判断有无token
-    this.getToken()
-    // 调用用户信息接口
+  created() {  
+    // 调用用户信息接口 
     this.getUserInfo()
     this.routerOpations = this.$router.options.routes[2].children
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      // 判断有无token
+      vm.getToken()
+    })
   },
   methods: {
     /**
@@ -55,7 +58,6 @@ export default {
       this.userInfo = res.data.data
       this.$store.state.userInfo = this.userInfo
       this.$store.state.role = this.userInfo.role
-      this.bol = true
       if (!this.userInfo.status) {
         tips('您帐号已禁用，请联系管理员!', 'error')
         removeLocal('token')
