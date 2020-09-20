@@ -1,10 +1,10 @@
 <template>
-  <div class="data-view">
+  <div class="data-view" v-if="statisticsList.length">
     <el-card>
       <data-header :titleInfo="titleInfo"  />
     </el-card>
-    <el-card>
-      <data-body />
+    <el-card class="data-body">
+      <data-body :statisticsList="statisticsList" />
     </el-card>
   </div>
 </template>
@@ -13,7 +13,7 @@
 import DataHeader from './DataHeader'
 import DataBody from './DataBody'
 
-import { getTitlteList } from 'network/data'
+import { getTitlteInfo, getStatisticsList } from 'network/data'
 
 export default {
   name: 'HomeData',
@@ -23,21 +23,31 @@ export default {
   },
   data() {
     return {
-      titleInfo: {}
+      titleInfo: {},
+      statisticsList: []
     }
   },
   created() {
-    this.getTitlteList()
+    this.getTitlteInfo()
+    this.getStatisticsList()
   },
   methods: {
-    async getTitlteList() {
-      const res = await getTitlteList()      
+    async getTitlteInfo() {
+      const res = await getTitlteInfo()      
       this.titleInfo = res.data.data
+    },
+    async getStatisticsList() {
+      const res = await getStatisticsList()      
+      this.statisticsList = res.data.data
     }
   },
 }
 </script>
 
 <style scoped>
-
+.data-body {
+  width: 100%;
+  height: 470px;
+  margin-top: 10px;
+}
 </style>
