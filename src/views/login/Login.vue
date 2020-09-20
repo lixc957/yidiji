@@ -52,13 +52,8 @@ export default {
     // 点击注册
     toRegister (dialogVisible) {
       this.$refs.register.dialogVisible = dialogVisible
-    },
-    getToken () {
-      if (getLocal('token')) {
-        return this.$router.replace('/home')
-      }
     }
-  },
+  }
 }
 </script>
 
