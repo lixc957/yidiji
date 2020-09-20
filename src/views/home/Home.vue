@@ -57,11 +57,6 @@ export default {
       this.userInfo = res.data.data
       this.$store.state.userInfo = this.userInfo
       this.$store.state.role = this.userInfo.role
-      if (!this.userInfo.status) {
-        tips('您帐号已禁用，请联系管理员!', 'error')
-        removeLocal('token')
-        return this.$router.replace('/login')
-      } else tips('登录成功', 'success')
     },
     async userExit() {
        await userExit()

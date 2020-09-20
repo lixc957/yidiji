@@ -18,7 +18,7 @@ import Register from 'views/register/Register'
 
 import { login } from 'network/login'
 import { getUserInfo } from 'network/home'
-import { setLocal, getLocal, tips } from 'common/utils'
+import { setLocal, getLocal, removeLocal, tips } from 'common/utils'
 
 export default {
   name: 'Login',
@@ -26,6 +26,11 @@ export default {
     LoginInput,
     LoginTitle,
     Register
+  },
+  data() {
+    return {
+      userStatus: ''
+    }
   },
   beforeRouteEnter (to, from, next) {   
     if (getLocal('token')) {
@@ -53,6 +58,20 @@ export default {
     toRegister (dialogVisible) {
       this.$refs.register.dialogVisible = dialogVisible
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    // 获取用户信息状态码
+    getUserInfo().then(res => {
+      this.userStatus = res.data.data.status
+      if (this.userStatus === 0) {
+        tips('您帐号已禁用，请联系管理员!', 'error')
+        removeLocal('token')
+        next('/login')
+      } else {
+        if (to.path.includes('home')) tips('登录成功', 'success')
+        next()
+      }
+    })  
   }
 }
 </script>
