@@ -3,18 +3,23 @@
     <el-card>
       <data-header :titleInfo="titleInfo"  />
     </el-card>
+    <el-card>
+      <data-body />
+    </el-card>
   </div>
 </template>
 
 <script>
 import DataHeader from './DataHeader'
+import DataBody from './DataBody'
 
 import { getTitlteList } from 'network/data'
 
 export default {
   name: 'HomeData',
   components: {
-    DataHeader
+    DataHeader,
+    DataBody
   },
   data() {
     return {
