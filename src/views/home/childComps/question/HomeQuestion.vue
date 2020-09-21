@@ -46,6 +46,7 @@
     @isDialogVisible="isDialogVisible"
     @add="addQuestion"
     @edit="editQuestion"
+    @typeChange="typeChange"
     />
   </div>
 </template>
@@ -296,6 +297,33 @@ export default {
     increment () {
       this.mode = 'add'
       this.$refs.questionAdd.dialogVisible = true
+    },
+    // 题型切换
+    typeChange() {
+      if (!this.addQuestionForm.select_options.length) {
+        this.addQuestionForm.select_options = [
+          {
+            label: 'A',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'B',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'C',
+            text: '',
+            image: ''
+          },
+          {
+            label: 'D',
+            text: '',
+            image: ''
+          }
+        ]
+      }
     }
   },
   components: {

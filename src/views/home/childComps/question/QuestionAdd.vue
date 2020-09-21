@@ -72,6 +72,7 @@
             v-for="(value, key, index) in typeObj" 
             :key="index" 
             :label="+key"
+            @change="typeChange"
             >{{value}}</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -252,6 +253,9 @@ export default {
     // },
     onEditorChange(msg) {
       this.$refs.addQuestionForm.validateField([msg])
+    },
+    typeChange() {
+      this.$emit('typeChange')
     }
   },
   mixins: [homeMainAddMixin]
